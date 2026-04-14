@@ -11,7 +11,10 @@ function Footer() {
   return (
     <footer className="footer">
       <div className="footer-inner">
-        <h2 className="footer-title">I would love to talk.</h2>
+        <div className="footer-heading">
+          <p className="footer-kicker">Available for thoughtful product work</p>
+          <h2 className="footer-title">I would love to talk.</h2>
+        </div>
 
         <div className="footer-rule" />
 
@@ -26,10 +29,11 @@ function Footer() {
           </div>
 
           <button className="footer-email" type="button" onClick={copyEmail}>
-            {email}
+            <span>{email}</span>
             <Copy size={26} strokeWidth={1.8} />
           </button>
         </div>
+
       </div>
     </footer>
   );

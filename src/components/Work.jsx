@@ -1,8 +1,8 @@
 import { motion as Motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import workDashboard from "../assets/samples/work-dashboard.svg";
 import workSystem from "../assets/samples/work-system.svg";
-import workMobile from "../assets/samples/work-mobile.svg";
+import bcfInfographic from "../assets/samples/bcf-infographic.svg";
+import rubeeInfographic from "../assets/samples/rubee-infographic.svg";
 import "./Work.css";
 
 const projectCards = [
@@ -17,7 +17,8 @@ const projectCards = [
     ],
     href: "/work/nebula-analytics",
     cta: "Open case study",
-    image: workDashboard,
+    image: bcfInfographic,
+    interactiveMedia: true,
   },
   {
     title:
@@ -42,7 +43,8 @@ const projectCards = [
     ],
     href: "/work/rubee-app",
     cta: "Open case study",
-    image: workMobile,
+    image: rubeeInfographic,
+    interactiveMedia: true,
   },
 ];
 
@@ -71,7 +73,7 @@ function Work() {
         <div className="work-list">
           {projectCards.map((card, i) => (
             <Motion.article
-              className="work-card"
+              className={`work-card ${card.interactiveMedia ? "work-card-interactive-media" : ""}`}
               key={`${card.title}-${i}`}
               initial={{ opacity: 0, y: 32 }}
               whileInView={{ opacity: 1, y: 0 }}

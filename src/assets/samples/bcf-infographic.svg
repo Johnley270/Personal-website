@@ -1,0 +1,217 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .panel,
+    .node,
+    .persona,
+    .bot,
+    .halo,
+    .caption-bar {
+      transform-box: fill-box;
+      transform-origin: center;
+      transition: transform 520ms cubic-bezier(.22,1,.36,1), filter 520ms cubic-bezier(.22,1,.36,1), opacity 520ms cubic-bezier(.22,1,.36,1);
+    }
+
+    .connector,
+    .flow-link {
+      transition: stroke 420ms ease, stroke-dashoffset 780ms cubic-bezier(.22,1,.36,1), opacity 420ms ease;
+    }
+
+    .connector {
+      stroke-dasharray: 16 10;
+      stroke-dashoffset: 0;
+    }
+
+    svg:hover .left-panel {
+      transform: translateX(-10px);
+    }
+
+    svg:hover .center-panel {
+      transform: translateY(-8px);
+      filter: drop-shadow(0 18px 28px rgba(0, 95, 88, .13));
+    }
+
+    svg:hover .right-panel {
+      transform: translateX(12px);
+    }
+
+    svg:hover .persona-admin {
+      transform: translate(4px, -10px);
+    }
+
+    svg:hover .persona-support {
+      transform: translate(18px, 0);
+    }
+
+    svg:hover .persona-operator {
+      transform: translate(4px, 10px);
+    }
+
+    svg:hover .node-intent {
+      transform: translate(-14px, -12px);
+    }
+
+    svg:hover .node-logic {
+      transform: translate(14px, -6px);
+    }
+
+    svg:hover .node-api {
+      transform: translate(-14px, 7px);
+    }
+
+    svg:hover .node-deploy {
+      transform: translate(14px, 12px);
+    }
+
+    svg:hover .bot-a {
+      transform: translate(14px, -10px);
+    }
+
+    svg:hover .bot-b {
+      transform: translate(26px, 0);
+    }
+
+    svg:hover .bot-c {
+      transform: translate(14px, 10px);
+    }
+
+    svg:hover .connector {
+      stroke: #007773;
+      stroke-dashoffset: -42;
+      opacity: .95;
+    }
+
+    svg:hover .flow-link {
+      stroke: #007773;
+      opacity: 1;
+    }
+
+    svg:hover .halo {
+      transform: scale(1.18);
+      opacity: .9;
+    }
+
+    svg:hover .caption-bar {
+      transform: translateY(-6px);
+      filter: drop-shadow(0 16px 24px rgba(0, 95, 88, .18));
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .panel,
+      .node,
+      .persona,
+      .bot,
+      .halo,
+      .caption-bar,
+      .connector,
+      .flow-link {
+        transition-duration: 1ms;
+      }
+    }
+  </style>
+
+  <rect width="1200" height="800" fill="#F7FAF9"/>
+  <rect x="84" y="78" width="1032" height="644" rx="28" fill="#FFFFFF" stroke="#AFAFAF" stroke-width="2"/>
+
+  <g class="panel left-panel">
+    <rect x="130" y="126" width="238" height="548" rx="22" fill="#F3F7F6" stroke="#D8E4E1" stroke-width="2"/>
+    <text x="158" y="176" fill="#005F58" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700">Enterprise SaaS</text>
+    <text x="158" y="214" fill="#6A6A6A" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500">Reusable systems for</text>
+    <text x="158" y="240" fill="#6A6A6A" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500">teams, clients, and scale</text>
+
+    <g class="persona persona-admin">
+      <rect x="158" y="302" width="160" height="48" rx="12" fill="#FFFFFF" stroke="#AFAFAF" stroke-width="2"/>
+      <text x="186" y="333" fill="#282828" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="700">Admin</text>
+      <circle cx="306" cy="326" r="8" fill="#007773"/>
+    </g>
+
+    <g class="persona persona-support">
+      <rect x="158" y="374" width="160" height="48" rx="12" fill="#FFFFFF" stroke="#AFAFAF" stroke-width="2"/>
+      <text x="186" y="405" fill="#282828" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="700">Support</text>
+      <circle cx="306" cy="398" r="8" fill="#E6A23C"/>
+    </g>
+
+    <g class="persona persona-operator">
+      <rect x="158" y="446" width="160" height="48" rx="12" fill="#FFFFFF" stroke="#AFAFAF" stroke-width="2"/>
+      <text x="186" y="477" fill="#282828" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="700">Operator</text>
+      <circle cx="306" cy="470" r="8" fill="#D95F59"/>
+    </g>
+  </g>
+
+  <path class="flow-link" d="M368 398H448" stroke="#C9D8D4" stroke-width="3" stroke-linecap="round"/>
+  <path class="flow-link" d="M430 382L448 398L430 414" stroke="#C9D8D4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <g class="panel center-panel">
+    <rect x="448" y="126" width="324" height="548" rx="22" fill="#FFFFFF" stroke="#AFAFAF" stroke-width="2"/>
+    <text x="486" y="176" fill="#282828" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="800">Bot Creation Framework</text>
+    <text x="486" y="214" fill="#6A6A6A" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500">No-code workflow canvas</text>
+
+    <path class="connector" d="M610 326C652 326 642 362 672 370" stroke="#8AA39D" stroke-width="3" stroke-linecap="round"/>
+    <path class="connector" d="M672 428C642 442 642 454 610 470" stroke="#8AA39D" stroke-width="3" stroke-linecap="round"/>
+    <path class="connector" d="M610 500C654 508 650 536 672 542" stroke="#8AA39D" stroke-width="3" stroke-linecap="round"/>
+
+    <g class="node node-intent">
+      <rect x="496" y="284" width="114" height="58" rx="14" fill="#F3F7F6" stroke="#007773" stroke-width="2"/>
+      <text x="526" y="319" fill="#005F58" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="700">Intent</text>
+    </g>
+
+    <g class="node node-logic">
+      <rect x="626" y="370" width="114" height="58" rx="14" fill="#FFF8EC" stroke="#E6A23C" stroke-width="2"/>
+      <text x="650" y="405" fill="#80570E" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="700">Logic</text>
+    </g>
+
+    <g class="node node-api">
+      <rect x="496" y="456" width="114" height="58" rx="14" fill="#FFF4F3" stroke="#D95F59" stroke-width="2"/>
+      <text x="526" y="491" fill="#9E3935" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="700">API</text>
+    </g>
+
+    <g class="node node-deploy">
+      <rect x="626" y="542" width="114" height="58" rx="14" fill="#F2F5FF" stroke="#64748B" stroke-width="2"/>
+      <text x="648" y="577" fill="#334155" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="700">Deploy</text>
+    </g>
+
+    <circle cx="610" cy="326" r="5" fill="#007773"/>
+    <circle cx="672" cy="370" r="5" fill="#E6A23C"/>
+    <circle cx="610" cy="470" r="5" fill="#D95F59"/>
+    <circle cx="672" cy="542" r="5" fill="#64748B"/>
+  </g>
+
+  <path class="flow-link" d="M772 398H804" stroke="#C9D8D4" stroke-width="3" stroke-linecap="round"/>
+  <path class="flow-link" d="M786 382L804 398L786 414" stroke="#C9D8D4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <g class="panel right-panel">
+    <rect x="804" y="126" width="266" height="548" rx="22" fill="#F3F7F6" stroke="#D8E4E1" stroke-width="2"/>
+    <text x="842" y="176" fill="#005F58" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700">Scalable Bots</text>
+    <text x="842" y="214" fill="#6A6A6A" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500">From one visual system</text>
+    <text x="842" y="240" fill="#6A6A6A" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500">to many live assistants</text>
+
+    <g class="bot bot-a">
+      <rect x="842" y="304" width="178" height="54" rx="14" fill="#FFFFFF" stroke="#AFAFAF" stroke-width="2"/>
+      <rect x="862" y="326" width="68" height="10" rx="5" fill="#007773" fill-opacity="0.28"/>
+      <rect x="944" y="326" width="46" height="10" rx="5" fill="#C9D8D4"/>
+    </g>
+
+    <g class="bot bot-b">
+      <rect x="842" y="390" width="178" height="54" rx="14" fill="#FFFFFF" stroke="#AFAFAF" stroke-width="2"/>
+      <rect x="862" y="412" width="86" height="10" rx="5" fill="#E6A23C" fill-opacity="0.35"/>
+      <rect x="962" y="412" width="28" height="10" rx="5" fill="#C9D8D4"/>
+    </g>
+
+    <g class="bot bot-c">
+      <rect x="842" y="476" width="178" height="54" rx="14" fill="#FFFFFF" stroke="#AFAFAF" stroke-width="2"/>
+      <rect x="862" y="498" width="58" height="10" rx="5" fill="#D95F59" fill-opacity="0.32"/>
+      <rect x="934" y="498" width="56" height="10" rx="5" fill="#C9D8D4"/>
+    </g>
+
+    <path d="M886 358V390" stroke="#AFAFAF" stroke-width="2" stroke-linecap="round"/>
+    <path d="M976 444V476" stroke="#AFAFAF" stroke-width="2" stroke-linecap="round"/>
+  </g>
+
+  <g class="caption-bar">
+    <rect x="128" y="612" width="942" height="62" rx="16" fill="#005F58"/>
+    <text x="158" y="651" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="700">No-code bot building: strategy, logic, integrations, and deployment in one visual framework</text>
+  </g>
+
+  <circle class="halo" cx="1008" cy="164" r="26" fill="#007773" fill-opacity="0.12"/>
+  <path d="M996 164H1020" stroke="#007773" stroke-width="3" stroke-linecap="round"/>
+  <path d="M1008 152V176" stroke="#007773" stroke-width="3" stroke-linecap="round"/>
+</svg>
