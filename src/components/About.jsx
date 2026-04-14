@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import avatarJohnley from "../assets/samples/avatar-johnley.svg";
 import "./About.css";
 
 const tools = [
@@ -26,7 +27,7 @@ function About() {
           >
             <div className="about-visual-card">
               <div className="about-avatar">
-                <span>J</span>
+                <img src={avatarJohnley} alt="Johnley profile" loading="lazy" />
               </div>
               <div className="about-visual-pattern" />
             </div>

@@ -2,12 +2,12 @@ export const projects = [
   {
     id: 1,
     slug: "nebula-analytics",
-    title: "Nebula Analytics",
-    category: "SaaS Dashboard",
+    title: "Bot Creation Framework",
+    category: "Enterprise SaaS",
     description:
-      "Complete redesign of an analytics platform used by 10K+ teams, improving task completion by 40%.",
-    tags: ["Product Design", "Design System", "Research"],
-    color: "#6366f1",
+      "Designing a no-code interface for fast and flexible conversational bot building.",
+    tags: ["Enterprise SaaS", "No Code Workflow", "Conversational AI"],
+    color: "#005f58",
     year: "2025",
   },
   {

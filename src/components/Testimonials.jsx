@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import avatarSarah from "../assets/samples/avatar-sarah.svg";
+import avatarAlex from "../assets/samples/avatar-alex.svg";
+import avatarMaya from "../assets/samples/avatar-maya.svg";
 import "./Testimonials.css";
 
 const testimonials = [
@@ -9,21 +12,21 @@ const testimonials = [
       "Johnley transformed our product from a confusing dashboard into something our users genuinely enjoy using. The attention to detail is incredible.",
     name: "Sarah Chen",
     role: "CPO at Nebula",
-    avatar: "S",
+    avatar: avatarSarah,
   },
   {
     quote:
       "Working with Johnley was a game-changer.  The design system he built saved our team hundreds of hours and brought consistency across our products.",
     name: "Alex Rivera",
     role: "Engineering Lead, FlowKit",
-    avatar: "A",
+    avatar: avatarAlex,
   },
   {
     quote:
       "Not just a designer, but a true product thinker. Johnley asks the right questions and delivers designs that move the needle on our KPIs.",
     name: "Maya Patel",
     role: "Founder at Pulse Health",
-    avatar: "M",
+    avatar: avatarMaya,
   },
 ];
 
@@ -63,7 +66,12 @@ function Testimonials() {
               <Quote size={32} className="testimonial-quote-icon" />
               <p className="testimonial-text">{current.quote}</p>
               <div className="testimonial-author">
-                <div className="testimonial-avatar">{current.avatar}</div>
+                <img
+                  className="testimonial-avatar"
+                  src={current.avatar}
+                  alt={`${current.name} avatar`}
+                  loading="lazy"
+                />
                 <div>
                   <div className="testimonial-name">{current.name}</div>
                   <div className="testimonial-role">{current.role}</div>

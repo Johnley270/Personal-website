@@ -1,407 +1,568 @@
-import { useParams, Link } from "react-router-dom";
-import { useEffect } from "react";
-import { motion } from "framer-motion";
-import { ArrowLeft } from "lucide-react";
-import { projects } from "../data/projects";
-import { caseStudies } from "../data/caseStudies";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import { Link, useParams } from "react-router-dom";
+import { caseStudies } from "../data/caseStudies";
+import { projects } from "../data/projects";
+import caseHero from "../assets/samples/case-hero.svg";
+import caseResearch from "../assets/samples/case-research.svg";
+import caseWireframe from "../assets/samples/case-wireframe.svg";
+import workDashboard from "../assets/samples/work-dashboard.svg";
 import "./CaseStudy.css";
 
-function ImagePlaceholder({
-  color = "var(--accent)",
-  label = "Image",
-  aspect = "16/9",
-}) {
+const rubeeImages = {
+  hero: "https://framerusercontent.com/images/HlGlYZneX4pDG87KY4rVzD4cvE.jpg",
+  overview: "https://framerusercontent.com/images/0u6hbbi6dVOhxJBkdtORFXIbRLY.jpg",
+  auditA: "https://framerusercontent.com/images/XvEGJjzV3NVQg1VVzsTRUo3EeRs.jpg",
+  auditB: "https://framerusercontent.com/images/0IM7oM9VHly5oCK1vgxvdXmh928.jpg",
+  researchA: "https://framerusercontent.com/images/TT9UA5tqB2aPZq5hw4zBmsj3ok.jpg",
+  researchB: "https://framerusercontent.com/images/qwbMy8LvaR6rlaxQyNtaADXVec.jpg",
+  persona: "https://framerusercontent.com/images/AOHlG9KvYeLIh4Ubx2rVw5HqQU.jpg",
+  consolidationA: "https://framerusercontent.com/images/ENOfAG5Vk3JNHqpfSCfR6R60yU.png",
+  consolidationB: "https://framerusercontent.com/images/9x1GJwU0wkY2yHdv19gUp6fu4A.png",
+  consolidationC: "https://framerusercontent.com/images/bsROPkXFyDL6FAnJEPp59oNHU.png",
+  wireframes: "https://framerusercontent.com/images/C14ETzJI9AGj19IKKyXG2rao54g.png",
+  flowA: "https://framerusercontent.com/images/cMTfnUIfMJetA0uiFieENJlcQyg.jpg",
+  flowB: "https://framerusercontent.com/images/6Jgbq7T8MpjvBItKfUBtXP8v3hI.jpg",
+  flowC: "https://framerusercontent.com/images/TpzhOjA2cupfUBPHqK6KpwQzM.jpg",
+  flowD: "https://framerusercontent.com/images/ub3xJohdEWM4WnMIBHYehSUe1I.jpg",
+  flowE: "https://framerusercontent.com/images/6j3s1HIcbnNLywpy1lc07g1LaqQ.jpg",
+  flowF: "https://framerusercontent.com/images/NidFDEtmZXrOqNNbYkhqF3gLVY.jpg",
+  visualA: "https://framerusercontent.com/images/NLgvIZQB1OMV0vggaQIzYmK9Uc0.png",
+  visualB: "https://framerusercontent.com/images/70WFTZlPwouvm4ewHE33im8Zao.png",
+  visualC: "https://framerusercontent.com/images/MR6wndWslUwlT46LazK6BJuOftg.png",
+  visualD: "https://framerusercontent.com/images/3e5cxde8OTwTstDfqHfUhUOs8jM.png",
+  visualE: "https://framerusercontent.com/images/NdNRTIEnEhnOlw5RwJCCTuUVeM8.png",
+  visualF: "https://framerusercontent.com/images/7rnt4n1COTHDPTHzvnlcCWK4wJ4.png",
+  graphA: "https://framerusercontent.com/images/6IXzaGdidVHLJDmNgmTS9ZfEFBg.png",
+  graphB: "https://framerusercontent.com/images/vYiMtxSF3rRrxTBUAP5k9tPhQ.jpg",
+  final: "https://framerusercontent.com/images/jxFHCC2MFSJNLq36liOzy2zEGw.png",
+};
+
+function ImageFrame({ src, alt = "" }) {
   return (
-    <div
-      className="cs-image-placeholder"
-      style={{
-        background: `${color}12`,
-        borderColor: `${color}30`,
-        aspectRatio: aspect,
-      }}
-    >
-      <span style={{ color }}>{label}</span>
+    <figure className="cs-image-frame">
+      <img src={src} alt={alt} loading="lazy" />
+    </figure>
+  );
+}
+
+function SectionHeader({ eyebrow, title }) {
+  return (
+    <div className="cs-section-head">
+      {eyebrow ? <p className="cs-eyebrow">{eyebrow}</p> : null}
+      <h2>{title}</h2>
     </div>
   );
 }
 
-const fadeIn = {
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-60px" },
-  transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
-};
-
-function CaseStudy({ onContactClick }) {
-  const { slug } = useParams();
-  const project = projects.find((p) => p.slug === slug);
-  const study = caseStudies[slug];
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [slug]);
-
-  if (!project) {
-    return (
-      <div className="case-study-page">
-        <Navbar onContactClick={onContactClick} />
-        <div className="cs-empty section">
-          <h2>Project not found</h2>
-          <Link to="/" className="cs-back">
-            <ArrowLeft size={16} />
-            Back to home
-          </Link>
+function DetailGrid({ details }) {
+  return (
+    <dl className="cs-details-grid">
+      {details.map((detail) => (
+        <div key={detail.label}>
+          <dt>{detail.label}</dt>
+          <dd>{detail.value}</dd>
         </div>
-      </div>
-    );
-  }
+      ))}
+    </dl>
+  );
+}
 
-  if (!study) {
-    return (
-      <div className="case-study-page">
-        <Navbar onContactClick={onContactClick} />
-        <motion.div className="cs-wrapper section" {...fadeIn}>
-          <Link to="/" className="cs-back">
-            <ArrowLeft size={16} />
-            Back to home
-          </Link>
-          <div className="cs-hero">
-            <span className="cs-label" style={{ color: project.color }}>
-              {project.category} · {project.year}
-            </span>
-            <h1 className="cs-hero-title">{project.title}</h1>
-            <p className="cs-hero-subtitle">{project.description}</p>
-            <div className="cs-tags">
-              {project.tags.map((t) => (
-                <span key={t} className="cs-tag">
-                  {t}
-                </span>
+function BcfCaseStudy({ onContactClick, study }) {
+  const images = [caseResearch, caseWireframe, workDashboard];
+
+  return (
+    <>
+      <Navbar onContactClick={onContactClick} />
+      <main className="case-study-page">
+        <section className="cs-hero-band">
+          <div className="cs-shell cs-hero-grid">
+            <div className="cs-hero-copy">
+              <Link className="cs-back" to="/#work">
+                Back to work
+              </Link>
+              <p className="cs-kicker">BOT CREATION FRAMEWORK CASE STUDY</p>
+              <h1>{study.title}</h1>
+              <p className="cs-date">{study.published}</p>
+            </div>
+            <ImageFrame src={caseHero} alt={study.title} />
+          </div>
+        </section>
+
+        <section className="cs-shell cs-project-details">
+          <h2>Project Details</h2>
+          <DetailGrid details={study.details} />
+        </section>
+
+        <section className="cs-shell cs-two-column">
+          <div>
+            <SectionHeader title="Designing a No-Code Interface for Fast & Flexible Bot Building" />
+            <p className="cs-quote">"{study.directive}"</p>
+          </div>
+          <div className="cs-copy">
+            {study.overview.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
+        </section>
+
+        <section className="cs-shell cs-two-column cs-problem">
+          <SectionHeader title="Problem Definition" />
+          <div className="cs-copy">
+            {study.problem.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
+          <ImageFrame src={workDashboard} alt="" />
+        </section>
+
+        <section className="cs-wide-band">
+          <div className="cs-shell">
+            <SectionHeader title="Discovery & Research" />
+            <p className="cs-lead">{study.discoveryIntro}</p>
+            <div className="cs-card-grid">
+              {study.discoveryCards.map((card) => (
+                <article className="cs-point-card" key={card.title}>
+                  <h3>{card.title}</h3>
+                  <p>{card.body}</p>
+                </article>
+              ))}
+            </div>
+            <div className="cs-image-pair">
+              <ImageFrame src={caseResearch} alt="" />
+              <ImageFrame src={caseWireframe} alt="" />
+            </div>
+          </div>
+        </section>
+
+        <section className="cs-shell cs-two-column">
+          <div>
+            <SectionHeader title="Design Strategy" />
+            <p className="cs-lead">{study.strategyIntro}</p>
+          </div>
+          <div>
+            <h3>Principles</h3>
+            <ul className="cs-list">
+              {study.principles.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="cs-image-triplet">
+            {images.map((src) => (
+              <ImageFrame key={src} src={src} alt="" />
+            ))}
+          </div>
+        </section>
+
+        <section className="cs-shell">
+          <SectionHeader title="Iteration Cycle" />
+          <p className="cs-lead">{study.iterationIntro}</p>
+          <div className="cs-two-column cs-spaced">
+            <div>
+              <h3>Mid-Fidelity Wireframes</h3>
+              <ul className="cs-list">
+                {study.wireframes.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3>Prototype With Realistic Scenarios</h3>
+              <p className="cs-copy-single">{study.prototype}</p>
+              <a
+                className="cs-text-link"
+                href={study.prototypeLink}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Open Figma prototype
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section className="cs-wide-band">
+          <div className="cs-shell">
+            <SectionHeader title="Feedback & Iteration" />
+            <div className="cs-two-column cs-spaced">
+              <div>
+                <h3>User Feedback</h3>
+                <ul className="cs-list">
+                  {study.feedback.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h3>Post-feedback, I iterated quickly on:</h3>
+                <ul className="cs-list">
+                  {study.iterations.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="cs-shell">
+          <SectionHeader title="Visual Design & Refinement" />
+          <p className="cs-lead">{study.visualIntro}</p>
+          <div className="cs-card-grid">
+            {study.visualDecisions.map((item) => (
+              <article className="cs-point-card" key={item}>
+                <p>{item}</p>
+              </article>
+            ))}
+          </div>
+          <div className="cs-visual-grid">
+            {images.map((src) => (
+              <ImageFrame key={src} src={src} alt="" />
+            ))}
+          </div>
+        </section>
+
+        <section className="cs-shell cs-feature-stack">
+          <SectionHeader title="Final Reflection" />
+          {study.reflection.map((paragraph) => (
+            <p className="cs-lead" key={paragraph}>
+              {paragraph}
+            </p>
+          ))}
+          <div className="cs-two-column cs-spaced">
+            <div>
+              <h3>What Worked Well</h3>
+              <ul className="cs-list">
+                {study.worked.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3>Gaps & Improvement Areas</h3>
+              <p className="cs-copy-single">{study.gaps}</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="cs-shell cs-bottom">
+          <SectionHeader title="Key Learnings" />
+          <div className="cs-card-grid">
+            {study.learnings.map((learning) => (
+              <article className="cs-point-card" key={learning}>
+                <p>{learning}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      </main>
+      <Footer onContactClick={onContactClick} />
+    </>
+  );
+}
+
+function RubeeCaseStudy({ onContactClick, project, study }) {
+  return (
+    <>
+      <Navbar onContactClick={onContactClick} />
+      <main className="case-study-page">
+        <section className="cs-hero-band">
+          <div className="cs-shell cs-hero-grid">
+            <div className="cs-hero-copy">
+              <Link className="cs-back" to="/#work">
+                Back to work
+              </Link>
+              <p className="cs-kicker">RUBEE APP CASE STUDY</p>
+              <h1>{study.heroSubtitle}</h1>
+              <p className="cs-date">{study.timeline}</p>
+            </div>
+            <ImageFrame src={rubeeImages.hero} alt={project.title} />
+          </div>
+        </section>
+
+        <section className="cs-shell cs-project-details">
+          <h2>Project Details</h2>
+          <DetailGrid
+            details={[
+              { label: "Timeline", value: study.timeline },
+              { label: "Tools", value: study.tools },
+              { label: "Team", value: study.team },
+            ]}
+          />
+        </section>
+
+        <section className="cs-shell cs-two-column">
+          <div>
+            <SectionHeader title="Background" />
+            <p className="cs-quote">"{study.background}"</p>
+          </div>
+          <div>
+            <SectionHeader title="About the Project" />
+            <div className="cs-copy">
+              {study.about.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
           </div>
-          <div className="cs-coming-soon">
-            <p>Full case study coming soon.</p>
+        </section>
+
+        <section className="cs-shell cs-two-column cs-problem">
+          <SectionHeader title="What problem does this app aim to solve?" />
+          <div className="cs-copy">
+            {study.problem.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
           </div>
-        </motion.div>
-      </div>
+          <ImageFrame src={rubeeImages.overview} alt="" />
+        </section>
+
+        <section className="cs-wide-band">
+          <div className="cs-shell">
+            <SectionHeader title="Research and Analysis" />
+            <p className="cs-lead">{study.researchIntro}</p>
+            <div className="cs-two-column cs-spaced">
+              <div>
+                <h3>Research objectives</h3>
+                <ul className="cs-list">
+                  {study.researchObjectives.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h3>Competitive Audit</h3>
+                <p className="cs-eyebrow">KEY FINDINGS</p>
+                <ul className="cs-list">
+                  {study.competitiveFindings.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            <div className="cs-image-pair">
+              <ImageFrame src={rubeeImages.auditA} alt="" />
+              <ImageFrame src={rubeeImages.auditB} alt="" />
+            </div>
+          </div>
+        </section>
+
+        <section className="cs-shell">
+          <SectionHeader title="Primary Research" />
+          <p className="cs-lead">{study.primaryResearch}</p>
+          <div className="cs-research-links">
+            <span>Survey format</span>
+            <span>Interview format</span>
+          </div>
+          <div className="cs-quotes-grid">
+            {study.userQuotes.map((quote) => (
+              <blockquote key={quote}>
+                <span>“</span>
+                {quote}
+                <span>”</span>
+              </blockquote>
+            ))}
+          </div>
+          <div className="cs-image-pair">
+            <ImageFrame src={rubeeImages.researchA} alt="" />
+            <ImageFrame src={rubeeImages.researchB} alt="" />
+          </div>
+        </section>
+
+        <section className="cs-shell cs-two-column">
+          <div>
+            <SectionHeader title="Research Consolidation" />
+            <div className="cs-copy">
+              {study.researchConsolidation.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+          </div>
+          <ImageFrame src={rubeeImages.persona} alt="" />
+          <div className="cs-image-triplet">
+            <ImageFrame src={rubeeImages.consolidationA} alt="" />
+            <ImageFrame src={rubeeImages.consolidationB} alt="" />
+            <ImageFrame src={rubeeImages.consolidationC} alt="" />
+          </div>
+        </section>
+
+        <section className="cs-wide-band">
+          <div className="cs-shell">
+            <SectionHeader title="Pain points" />
+            <p className="cs-lead">
+              I have narrowed down the data from my research to four main pain
+              points that I will be focusing on in the next steps.
+            </p>
+            <div className="cs-card-grid">
+              {study.painPoints.map((point) => (
+                <article key={point.title} className="cs-point-card">
+                  <h3>{point.title}</h3>
+                  <p>{point.description}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="cs-shell">
+          <SectionHeader title="Ideation" />
+          <p className="cs-lead">{study.ideationIntro}</p>
+          <div className="cs-two-column cs-spaced">
+            <div>
+              <h3>Ideate</h3>
+              <p className="cs-copy-single">{study.ideationDetails}</p>
+              <a
+                className="cs-text-link"
+                href="https://drive.google.com"
+                target="_blank"
+                rel="noreferrer"
+              >
+                HMW Questions
+              </a>
+            </div>
+            <div>
+              <h3>Major Solutions & Design Approach</h3>
+              <ul className="cs-list">
+                {study.designApproach.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section className="cs-shell">
+          <SectionHeader title="WIreframes" />
+          <p className="cs-lead">{study.wireframesIntro}</p>
+          <a
+            className="cs-text-link"
+            href="https://www.behance.net"
+            target="_blank"
+            rel="noreferrer"
+          >
+            View Detailedprocess on Behance
+          </a>
+          <ImageFrame src={rubeeImages.wireframes} alt="" />
+        </section>
+
+        <section className="cs-shell">
+          <SectionHeader title="User flows" />
+          <div className="cs-tab-row">
+            <span>Information Architecture</span>
+            <span>Task flow</span>
+          </div>
+          <div className="cs-flow-grid">
+            {[
+              rubeeImages.flowA,
+              rubeeImages.flowB,
+              rubeeImages.flowC,
+              rubeeImages.flowD,
+              rubeeImages.flowE,
+              rubeeImages.flowF,
+            ].map((src) => (
+              <ImageFrame key={src} src={src} alt="" />
+            ))}
+          </div>
+        </section>
+
+        <section className="cs-shell">
+          <SectionHeader title="User Testing" />
+          <p className="cs-lead">I asked a few users to give feedback of the app.</p>
+        </section>
+
+        <section className="cs-wide-band">
+          <div className="cs-shell">
+            <SectionHeader title="Visual Design" />
+            <p className="cs-lead">
+              Visual designs not optimised for viewing in screen size of this
+              resolution
+            </p>
+            <p className="cs-lead">Open in desktop for best experience or</p>
+            <a
+              className="cs-text-link"
+              href="https://www.behance.net"
+              target="_blank"
+              rel="noreferrer"
+            >
+              View in Behance
+            </a>
+            <div className="cs-visual-grid">
+              {[
+                rubeeImages.visualA,
+                rubeeImages.visualB,
+                rubeeImages.visualC,
+                rubeeImages.visualD,
+                rubeeImages.visualE,
+                rubeeImages.visualF,
+              ].map((src) => (
+                <ImageFrame key={src} src={src} alt="" />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="cs-shell cs-feature-stack">
+          {study.features.map((feature) => (
+            <article key={feature.title} className="cs-feature-row">
+              <h2>{feature.title}</h2>
+              <p>{feature.body}</p>
+            </article>
+          ))}
+          <div className="cs-image-pair">
+            <ImageFrame src={rubeeImages.graphA} alt="" />
+            <ImageFrame src={rubeeImages.graphB} alt="" />
+          </div>
+          <ImageFrame src={rubeeImages.final} alt="" />
+        </section>
+
+        <section className="cs-shell cs-bottom">
+          <SectionHeader title="Key Learnings" />
+          <div className="cs-card-grid">
+            {study.learnings.map((learning) => (
+              <article className="cs-point-card" key={learning}>
+                <p>{learning}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      </main>
+      <Footer onContactClick={onContactClick} />
+    </>
+  );
+}
+
+function CaseStudy({ onContactClick }) {
+  const { slug } = useParams();
+  const project = projects.find((item) => item.slug === slug);
+  const study = caseStudies[slug];
+
+  if (slug === "rubee-app" && project && study) {
+    return (
+      <RubeeCaseStudy
+        onContactClick={onContactClick}
+        project={project}
+        study={study}
+      />
     );
   }
 
+  if (slug === "nebula-analytics" && study) {
+    return <BcfCaseStudy onContactClick={onContactClick} study={study} />;
+  }
+
   return (
-    <div className="case-study-page">
+    <>
       <Navbar onContactClick={onContactClick} />
-
-      {/* Hero */}
-      <motion.section className="cs-wrapper section" {...fadeIn}>
-        <Link to="/" className="cs-back">
-          <ArrowLeft size={16} />
-          Back to home
-        </Link>
-        <div className="cs-hero">
-          <span className="cs-label" style={{ color: project.color }}>
-            {project.category} · {project.year}
-          </span>
-          <h1 className="cs-hero-title">{project.title}</h1>
-          <p className="cs-hero-subtitle">{study.heroSubtitle}</p>
+      <main className="case-study-page cs-empty-state">
+        <div className="cs-shell">
+          <Link className="cs-back" to="/#work">
+            Back to work
+          </Link>
+          <h1>{project?.title || "Case Study"}</h1>
+          <p>This case study is being updated.</p>
         </div>
-      </motion.section>
-
-      {/* Cover Image */}
-      <motion.div className="cs-cover section" {...fadeIn}>
-        <ImagePlaceholder
-          color={project.color}
-          label="Hero Image"
-          aspect="21/9"
-        />
-      </motion.div>
-
-      {/* Project Details */}
-      <motion.section className="cs-section section" {...fadeIn}>
-        <h2 className="cs-section-heading">Project Details</h2>
-        <div className="cs-details-grid">
-          <div className="cs-detail-item">
-            <span className="cs-detail-label">Timeline</span>
-            <span className="cs-detail-value">{study.timeline}</span>
-          </div>
-          <div className="cs-detail-item">
-            <span className="cs-detail-label">Tools</span>
-            <span className="cs-detail-value">{study.tools}</span>
-          </div>
-          <div className="cs-detail-item">
-            <span className="cs-detail-label">Team</span>
-            <span className="cs-detail-value">{study.team}</span>
-          </div>
-        </div>
-      </motion.section>
-
-      {/* Background */}
-      <motion.section className="cs-section section" {...fadeIn}>
-        <h2 className="cs-section-heading">Background</h2>
-        <blockquote className="cs-blockquote">{study.background}</blockquote>
-      </motion.section>
-
-      {/* About the Project */}
-      <motion.section className="cs-section section" {...fadeIn}>
-        <h2 className="cs-section-heading">About the Project</h2>
-        <p className="cs-body">{study.about}</p>
-        <ImagePlaceholder color={project.color} label="App Overview Image" />
-      </motion.section>
-
-      {/* Problem */}
-      <motion.section className="cs-section section" {...fadeIn}>
-        <h2 className="cs-section-heading">
-          What problem does this app aim to solve?
-        </h2>
-        <div className="cs-body">
-          {study.problem.map((p, i) => (
-            <p key={i}>{p}</p>
-          ))}
-        </div>
-      </motion.section>
-
-      {/* Research & Analysis */}
-      <motion.section className="cs-section cs-section-alt" {...fadeIn}>
-        <div className="section">
-          <span className="cs-section-label" style={{ color: project.color }}>
-            Research & Analysis
-          </span>
-          <h2 className="cs-section-heading"> </h2>
-          <p className="cs-body">{study.researchIntro}</p>
-        </div>
-      </motion.section>
-
-      {/* Research Objectives */}
-      <motion.section className="cs-section section" {...fadeIn}>
-        <h3 className="cs-sub-heading">Research Objectives</h3>
-        <ul className="cs-list">
-          {study.researchObjectives.map((o, i) => (
-            <li key={i}>{o}</li>
-          ))}
-        </ul>
-      </motion.section>
-
-      {/* Competitive Audit */}
-      <motion.section className="cs-section section" {...fadeIn}>
-        <h3 className="cs-sub-heading">Competitive Audit</h3>
-        <ImagePlaceholder
-          color={project.color}
-          label="Competitive Audit Image"
-        />
-        <div className="cs-findings">
-          <h4 className="cs-findings-label">Key Findings</h4>
-          <ul className="cs-list">
-            {study.competitiveFindings.map((f, i) => (
-              <li key={i}>{f}</li>
-            ))}
-          </ul>
-        </div>
-      </motion.section>
-
-      {/* Primary Research */}
-      <motion.section className="cs-section section" {...fadeIn}>
-        <h3 className="cs-sub-heading">Primary Research</h3>
-        <p className="cs-body">{study.primaryResearch}</p>
-        <div className="cs-image-row">
-          <ImagePlaceholder
-            color={project.color}
-            label="Survey Format"
-            aspect="4/3"
-          />
-          <ImagePlaceholder
-            color={project.color}
-            label="Interview Format"
-            aspect="4/3"
-          />
-        </div>
-      </motion.section>
-
-      {/* User Quotes */}
-      <motion.section className="cs-section section" {...fadeIn}>
-        <h3 className="cs-sub-heading">What users said</h3>
-        <div className="cs-quotes-grid">
-          {study.userQuotes.map((q, i) => (
-            <div key={i} className="cs-quote-card">
-              <span className="cs-quote-mark">"</span>
-              <p>{q}</p>
-            </div>
-          ))}
-        </div>
-      </motion.section>
-
-      {/* Research Consolidation */}
-      <motion.section className="cs-section section" {...fadeIn}>
-        <h3 className="cs-sub-heading">Research Consolidation</h3>
-        <div className="cs-body">
-          {study.researchConsolidation.map((r, i) => (
-            <p key={i}>{r}</p>
-          ))}
-        </div>
-        <div className="cs-image-row cs-image-row-3">
-          <ImagePlaceholder
-            color={project.color}
-            label="Persona"
-            aspect="3/4"
-          />
-          <ImagePlaceholder
-            color={project.color}
-            label="Empathy Map"
-            aspect="3/4"
-          />
-          <ImagePlaceholder
-            color={project.color}
-            label="Journey Map"
-            aspect="3/4"
-          />
-        </div>
-      </motion.section>
-
-      {/* Pain Points */}
-      <motion.section className="cs-section cs-section-alt" {...fadeIn}>
-        <div className="section">
-          <span className="cs-section-label" style={{ color: project.color }}>
-            Pain Points
-          </span>
-          <h2 className="cs-section-heading">Core challenges identified</h2>
-          <div className="cs-pain-grid">
-            {study.painPoints.map((pp, i) => (
-              <div key={i} className="cs-pain-card">
-                <span
-                  className="cs-pain-number"
-                  style={{ color: project.color }}
-                >
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h4>{pp.title}</h4>
-                <p>{pp.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </motion.section>
-
-      {/* Ideation */}
-      <motion.section className="cs-section section" {...fadeIn}>
-        <span className="cs-section-label" style={{ color: project.color }}>
-          Ideation
-        </span>
-        <h2 className="cs-section-heading">From problems to solutions</h2>
-        <p className="cs-body">{study.ideationIntro}</p>
-        <p className="cs-body">{study.ideationDetails}</p>
-        <ImagePlaceholder color={project.color} label="HMW Questions Image" />
-      </motion.section>
-
-      {/* Design Approach */}
-      <motion.section className="cs-section section" {...fadeIn}>
-        <h3 className="cs-sub-heading">Major Solutions & Design Approach</h3>
-        <ul className="cs-list cs-list-accent">
-          {study.designApproach.map((d, i) => (
-            <li key={i}>{d}</li>
-          ))}
-        </ul>
-      </motion.section>
-
-      {/* Wireframes */}
-      <motion.section className="cs-section section" {...fadeIn}>
-        <h3 className="cs-sub-heading">Wireframes</h3>
-        <p className="cs-body">{study.wireframesIntro}</p>
-        <ImagePlaceholder
-          color={project.color}
-          label="Wireframes Image"
-          aspect="16/10"
-        />
-        <div className="cs-image-row cs-image-row-3">
-          <ImagePlaceholder
-            color={project.color}
-            label="User Flows"
-            aspect="1/1"
-          />
-          <ImagePlaceholder
-            color={project.color}
-            label="Info Architecture"
-            aspect="1/1"
-          />
-          <ImagePlaceholder
-            color={project.color}
-            label="Task Flow"
-            aspect="1/1"
-          />
-        </div>
-      </motion.section>
-
-      {/* User Testing */}
-      <motion.section className="cs-section section" {...fadeIn}>
-        <h3 className="cs-sub-heading">User Testing</h3>
-        <p className="cs-body">
-          I asked a few users to give feedback of the app.
-        </p>
-        <ImagePlaceholder
-          color={project.color}
-          label="User Testing Results Image"
-        />
-      </motion.section>
-
-      {/* Visual Design */}
-      <motion.section className="cs-section cs-section-alt" {...fadeIn}>
-        <div className="section">
-          <span className="cs-section-label" style={{ color: project.color }}>
-            Visual Design
-          </span>
-          <h2 className="cs-section-heading">Final Designs</h2>
-          <div className="cs-image-row">
-            <ImagePlaceholder
-              color={project.color}
-              label="Visual Design 1"
-              aspect="9/16"
-            />
-            <ImagePlaceholder
-              color={project.color}
-              label="Visual Design 2"
-              aspect="9/16"
-            />
-            <ImagePlaceholder
-              color={project.color}
-              label="Visual Design 3"
-              aspect="9/16"
-            />
-            <ImagePlaceholder
-              color={project.color}
-              label="Visual Design 4"
-              aspect="9/16"
-            />
-          </div>
-        </div>
-      </motion.section>
-
-      {/* Learnings */}
-      <motion.section className="cs-section section" {...fadeIn}>
-        <span className="cs-section-label" style={{ color: project.color }}>
-          Reflections
-        </span>
-        <h2 className="cs-section-heading">Key Learnings</h2>
-        <div className="cs-learnings-grid">
-          {study.learnings.map((l, i) => (
-            <div key={i} className="cs-learning-card">
-              <span
-                className="cs-learning-number"
-                style={{ color: project.color }}
-              >
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <p>{l}</p>
-            </div>
-          ))}
-        </div>
-      </motion.section>
-
-      {/* Bottom nav */}
-      <motion.section className="cs-bottom section" {...fadeIn}>
-        <Link to="/" className="cs-back">
-          <ArrowLeft size={16} />
-          Back to all projects
-        </Link>
-      </motion.section>
-    </div>
+      </main>
+    </>
   );
 }
 

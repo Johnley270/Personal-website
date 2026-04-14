@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion as Motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
@@ -15,14 +15,12 @@ function Navbar({ onContactClick }) {
   }, []);
 
   const links = [
+    { label: "Home", href: "#", active: true },
     { label: "Work", href: "#work" },
-    { label: "Services", href: "#services" },
-    { label: "About", href: "#about" },
-    { label: "Testimonials", href: "#testimonials" },
   ];
 
   return (
-    <motion.nav
+    <Motion.nav
       className={`navbar ${scrolled ? "navbar-scrolled" : ""}`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -30,22 +28,35 @@ function Navbar({ onContactClick }) {
     >
       <div className="navbar-inner">
         <Link to="/" className="navbar-logo">
-          <span className="logo-mark" />
-          Johnley
+          PORTFOLIO
         </Link>
 
-        <ul className="navbar-links">
-          {links.map((link) => (
-            <li key={link.href}>
-              <a href={link.href}>{link.label}</a>
-            </li>
-          ))}
-        </ul>
+        <div className="navbar-menu">
+          <ul className="navbar-links">
+            {links.map((link) => (
+              <li key={link.label}>
+                <a
+                  href={link.href}
+                  className={link.active ? "navbar-link-active" : undefined}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
 
-        <button onClick={onContactClick} className="navbar-cta">
-          Let's Talk
-          <span className="cta-arrow">→</span>
-        </button>
+          <div className="navbar-actions">
+            <a href="#resume" className="navbar-action navbar-action-secondary">
+              Resume
+            </a>
+            <button
+              onClick={onContactClick}
+              className="navbar-action navbar-action-primary"
+            >
+              Contact
+            </button>
+          </div>
+        </div>
 
         <button
           className="navbar-toggle"
@@ -53,13 +64,28 @@ function Navbar({ onContactClick }) {
           aria-label="Toggle menu"
           aria-expanded={menuOpen}
         >
-          {menuOpen ? <X size={20} /> : <Menu size={20} />}
+          {menuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
+      </div>
+
+      <div
+        className="navbar-ribbon"
+        aria-label="Vibe coding in progress. AI-assisted build in motion. Layout may evolve while experiments compile."
+      >
+        <div className="navbar-ribbon-track">
+          {Array.from({ length: 2 }).map((_, index) => (
+            <div className="navbar-ribbon-group" key={index} aria-hidden={index > 0}>
+              <span>Vibe coding in progress</span>
+              <span>AI-assisted build in motion</span>
+              <span>Layout may evolve while experiments compile</span>
+            </div>
+          ))}
+        </div>
       </div>
 
       <AnimatePresence>
         {menuOpen && (
-          <motion.div
+          <Motion.div
             className="navbar-mobile"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
@@ -67,8 +93,8 @@ function Navbar({ onContactClick }) {
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
           >
             {links.map((link, i) => (
-              <motion.a
-                key={link.href}
+              <Motion.a
+                key={link.label}
                 href={link.href}
                 className="mobile-link"
                 initial={{ opacity: 0, x: -20 }}
@@ -77,21 +103,28 @@ function Navbar({ onContactClick }) {
                 onClick={() => setMenuOpen(false)}
               >
                 {link.label}
-              </motion.a>
+              </Motion.a>
             ))}
+            <a
+              href="#resume"
+              className="mobile-action mobile-action-secondary"
+              onClick={() => setMenuOpen(false)}
+            >
+              Resume
+            </a>
             <button
-              className="mobile-cta"
+              className="mobile-action mobile-action-primary"
               onClick={() => {
                 setMenuOpen(false);
                 onContactClick();
               }}
             >
-              Let's Talk →
+              Contact
             </button>
-          </motion.div>
+          </Motion.div>
         )}
       </AnimatePresence>
-    </motion.nav>
+    </Motion.nav>
   );
 }
 

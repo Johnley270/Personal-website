@@ -44,13 +44,8 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), var(--accent-light));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: 700;
-  font-size: 16px;
+  border: 1px solid var(--border);
+  object-fit: cover;
   flex-shrink: 0;
 }
 

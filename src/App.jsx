@@ -3,9 +3,6 @@ import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Work from "./components/Work";
-import Services from "./components/Services";
-import About from "./components/About";
-import Testimonials from "./components/Testimonials";
 import Footer from "./components/Footer";
 import ContactModal from "./components/ContactModal";
 import CaseStudy from "./pages/CaseStudy";
@@ -26,9 +23,6 @@ function App() {
               <Navbar onContactClick={openContact} />
               <Hero onContactClick={openContact} />
               <Work />
-              <Services />
-              <About />
-              <Testimonials />
               <Footer onContactClick={openContact} />
             </>
           }
