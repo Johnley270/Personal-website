@@ -1,0 +1,150 @@
+.work {
+  padding: 120px 0;
+}
+
+.work-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.work-header {
+  margin-bottom: 60px;
+}
+
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.work-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.work-card:hover {
+  border-color: var(--border);
+  box-shadow: var(--shadow-lg);
+}
+
+.work-card-visual {
+  height: 220px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.work-card-accent {
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  opacity: 0.8;
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.work-card:hover .work-card-accent {
+  transform: scale(1.2) rotate(10deg);
+  opacity: 1;
+}
+
+.work-card-body {
+  padding: 28px;
+}
+
+.work-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.work-card-category {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+}
+
+.work-card-year {
+  font-size: 13px;
+  color: var(--text);
+  opacity: 0.6;
+}
+
+.work-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-h);
+  margin-bottom: 10px;
+  letter-spacing: -0.02em;
+}
+
+.work-card-arrow {
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: all 0.3s;
+}
+
+.work-card:hover .work-card-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.work-card-description {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.work-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.work-tag {
+  padding: 4px 12px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text);
+  transition: all 0.2s;
+}
+
+.work-card:hover .work-tag {
+  border-color: var(--accent-border);
+  color: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .work {
+    padding: 80px 0;
+  }
+
+  .work-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .work-card-visual {
+    height: 160px;
+  }
+
+  .work-card-body {
+    padding: 20px;
+  }
+}
