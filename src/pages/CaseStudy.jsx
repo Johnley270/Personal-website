@@ -3,10 +3,12 @@ import Footer from "../components/Footer";
 import { Link, useParams } from "react-router-dom";
 import { caseStudies } from "../data/caseStudies";
 import { projects } from "../data/projects";
-import caseHero from "../assets/samples/case-hero.svg";
 import caseResearch from "../assets/samples/case-research.svg";
 import caseWireframe from "../assets/samples/case-wireframe.svg";
 import workDashboard from "../assets/samples/work-dashboard.svg";
+import bcfInfographic from "../assets/samples/bcf-infographic.svg";
+import workSystem from "../assets/samples/work-system.svg";
+import rubeeInfographic from "../assets/samples/rubee-infographic.svg";
 import "./CaseStudy.css";
 
 const rubeeImages = {
@@ -68,6 +70,39 @@ function DetailGrid({ details }) {
   );
 }
 
+function ProjectMetadata({ role, toolsUsed, details }) {
+  return (
+    <div className="cs-project-metadata">
+      <div className="cs-metadata-box">
+        <div className="cs-metadata-row">
+          <dt>Role</dt>
+          <dd>{role}</dd>
+        </div>
+
+        <div className="cs-metadata-row">
+          <dt>Tools Used</dt>
+          <dd>
+            <ul className="cs-tools-list">
+              {toolsUsed.map((tool) => (
+                <li key={tool.name}>
+                  <strong>{tool.name}</strong> — {tool.description}
+                </li>
+              ))}
+            </ul>
+          </dd>
+        </div>
+
+        {details && details.map((detail) => (
+          <div className="cs-metadata-row" key={detail.label}>
+            <dt>{detail.label}</dt>
+            <dd>{detail.value}</dd>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function BcfCaseStudy({ onContactClick, study }) {
   const images = [caseResearch, caseWireframe, workDashboard];
 
@@ -85,20 +120,21 @@ function BcfCaseStudy({ onContactClick, study }) {
               <h1>{study.title}</h1>
               <p className="cs-date">{study.published}</p>
             </div>
-            <ImageFrame src={caseHero} alt={study.title} />
+            <ImageFrame src={bcfInfographic} alt={study.title} />
           </div>
         </section>
 
         <section className="cs-shell cs-project-details">
-          <h2>Project Details</h2>
-          <DetailGrid details={study.details} />
+          <SectionHeader eyebrow="01 Snapshot" title="Project Details" />
+          <ProjectMetadata role={study.role} toolsUsed={study.toolsUsed} details={study.details} />
         </section>
 
-        <section className="cs-shell cs-two-column">
-          <div>
-            <SectionHeader title="Designing a No-Code Interface for Fast & Flexible Bot Building" />
-            <p className="cs-quote">"{study.directive}"</p>
-          </div>
+        <section className="cs-shell cs-single-column">
+          <SectionHeader
+            eyebrow="02 Overview"
+            title="Designing a No-Code Interface for Fast & Flexible Bot Building"
+          />
+          <p className="cs-quote">"{study.directive}"</p>
           <div className="cs-copy">
             {study.overview.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
@@ -107,40 +143,54 @@ function BcfCaseStudy({ onContactClick, study }) {
         </section>
 
         <section className="cs-shell cs-two-column cs-problem">
-          <SectionHeader title="Problem Definition" />
+          <div>
+            <SectionHeader eyebrow="03 Problem" title="Problem Definition" />
+          </div>
           <div className="cs-copy">
+            {study.problemIntro && <p>{study.problemIntro}</p>}
+            <p>{study.exploringEcosystem}</p>
             {study.problem.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
           </div>
-          <ImageFrame src={workDashboard} alt="" />
         </section>
 
         <section className="cs-wide-band">
-          <div className="cs-shell">
-            <SectionHeader title="Discovery & Research" />
-            <p className="cs-lead">{study.discoveryIntro}</p>
-            <div className="cs-card-grid">
-              {study.discoveryCards.map((card) => (
-                <article className="cs-point-card" key={card.title}>
-                  <h3>{card.title}</h3>
-                  <p>{card.body}</p>
-                </article>
-              ))}
+          <div className="cs-shell cs-two-column">
+            <div>
+              <SectionHeader eyebrow="04 Research" title="Discovery & Research" />
             </div>
-            <div className="cs-image-pair">
-              <ImageFrame src={caseResearch} alt="" />
-              <ImageFrame src={caseWireframe} alt="" />
+            <div>
+              <p className="cs-lead">{study.discoveryIntro}</p>
+              <div className="cs-card-grid">
+                {study.discoveryCards.map((card) => (
+                  <article className="cs-point-card" key={card.title}>
+                    <h3>{card.title}</h3>
+                    <p>{card.body}</p>
+                  </article>
+                ))}
+              </div>
+              <div className="cs-image-pair">
+                <ImageFrame src={caseResearch} alt="" />
+                <ImageFrame src={caseWireframe} alt="" />
+              </div>
             </div>
           </div>
         </section>
 
         <section className="cs-shell cs-two-column">
           <div>
-            <SectionHeader title="Design Strategy" />
-            <p className="cs-lead">{study.strategyIntro}</p>
+            <SectionHeader eyebrow="05 Strategy" title="Design Strategy" />
           </div>
           <div>
+            <p className="cs-lead">{study.strategyIntro}</p>
+            {study.strategyPoints && (
+              <ul className="cs-list">
+                {study.strategyPoints.map((point) => (
+                  <li key={point}>{point}</li>
+                ))}
+              </ul>
+            )}
             <h3>Principles</h3>
             <ul className="cs-list">
               {study.principles.map((item) => (
@@ -148,111 +198,119 @@ function BcfCaseStudy({ onContactClick, study }) {
               ))}
             </ul>
           </div>
-          <div className="cs-image-triplet">
-            {images.map((src) => (
-              <ImageFrame key={src} src={src} alt="" />
-            ))}
-          </div>
         </section>
 
-        <section className="cs-shell">
-          <SectionHeader title="Iteration Cycle" />
-          <p className="cs-lead">{study.iterationIntro}</p>
-          <div className="cs-two-column cs-spaced">
-            <div>
-              <h3>Mid-Fidelity Wireframes</h3>
-              <ul className="cs-list">
-                {study.wireframes.map((item) => (
-                  <li key={item}>{item}</li>
+        <section className="cs-shell cs-two-column">
+          <div>
+            <SectionHeader eyebrow="06 Iteration" title="Iteration Cycle" />
+          </div>
+          <div>
+            <p className="cs-lead">{study.iterationIntro}</p>
+            <h3>Mid-Fidelity Wireframes</h3>
+            <ul className="cs-list">
+              {study.wireframes.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+            {study.iterationDetails && (
+              <div className="cs-copy" style={{ marginTop: "24px" }}>
+                {study.iterationDetails.map((detail) => (
+                  <p key={detail}>{detail}</p>
                 ))}
-              </ul>
-            </div>
-            <div>
-              <h3>Prototype With Realistic Scenarios</h3>
-              <p className="cs-copy-single">{study.prototype}</p>
-              <a
-                className="cs-text-link"
-                href={study.prototypeLink}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Open Figma prototype
-              </a>
-            </div>
+              </div>
+            )}
+            <h3>Prototype With Realistic Scenarios</h3>
+            <p className="cs-copy-single">{study.prototype}</p>
+            <a
+              className="cs-text-link"
+              href={study.prototypeLink}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Open Figma prototype
+            </a>
           </div>
         </section>
 
         <section className="cs-wide-band">
-          <div className="cs-shell">
-            <SectionHeader title="Feedback & Iteration" />
-            <div className="cs-two-column cs-spaced">
-              <div>
-                <h3>User Feedback</h3>
-                <ul className="cs-list">
-                  {study.feedback.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <h3>Post-feedback, I iterated quickly on:</h3>
-                <ul className="cs-list">
-                  {study.iterations.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="cs-shell">
-          <SectionHeader title="Visual Design & Refinement" />
-          <p className="cs-lead">{study.visualIntro}</p>
-          <div className="cs-card-grid">
-            {study.visualDecisions.map((item) => (
-              <article className="cs-point-card" key={item}>
-                <p>{item}</p>
-              </article>
-            ))}
-          </div>
-          <div className="cs-visual-grid">
-            {images.map((src) => (
-              <ImageFrame key={src} src={src} alt="" />
-            ))}
-          </div>
-        </section>
-
-        <section className="cs-shell cs-feature-stack">
-          <SectionHeader title="Final Reflection" />
-          {study.reflection.map((paragraph) => (
-            <p className="cs-lead" key={paragraph}>
-              {paragraph}
-            </p>
-          ))}
-          <div className="cs-two-column cs-spaced">
+          <div className="cs-shell cs-two-column">
             <div>
-              <h3>What Worked Well</h3>
+              <SectionHeader eyebrow="07 Feedback" title="Feedback & Iteration" />
+            </div>
+            <div>
+              {study.feedbackIntro && <p className="cs-lead">{study.feedbackIntro}</p>}
+              {study.feedbackContext && <p className="cs-lead">{study.feedbackContext}</p>}
+              <h3>User Feedback</h3>
               <ul className="cs-list">
-                {study.worked.map((item) => (
+                {study.feedback.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+              <h3>Post-feedback, I iterated quickly on:</h3>
+              <ul className="cs-list">
+                {study.iterations.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
               </ul>
             </div>
+          </div>
+        </section>
+
+        {study.limitedInteractivity && (
+          <section className="cs-shell cs-two-column">
             <div>
-              <h3>Gaps & Improvement Areas</h3>
-              <p className="cs-copy-single">{study.gaps}</p>
+              <SectionHeader eyebrow="08 Constraint" title="Limited Interactivity in Testing" />
+            </div>
+            <div>
+              <p className="cs-copy-single">{study.limitedInteractivity}</p>
+            </div>
+          </section>
+        )}
+
+        <section className="cs-shell cs-two-column">
+          <div>
+            <SectionHeader eyebrow="09 Visuals" title="Visual Design & Refinement" />
+          </div>
+          <div>
+            <p className="cs-lead">{study.visualIntro}</p>
+            <div className="cs-card-grid">
+              {study.visualDecisions.map((item) => (
+                <article className="cs-point-card" key={item}>
+                  <p>{item}</p>
+                </article>
+              ))}
             </div>
           </div>
         </section>
 
-        <section className="cs-shell cs-bottom">
-          <SectionHeader title="Key Learnings" />
-          <div className="cs-card-grid">
+        <section className="cs-shell cs-two-column">
+          <div>
+            <SectionHeader eyebrow="10 Reflection" title="Final Reflection" />
+          </div>
+          <div>
+            {study.reflection.map((paragraph) => (
+              <p className="cs-lead" key={paragraph}>
+                {paragraph}
+              </p>
+            ))}
+            <h3>What Worked Well</h3>
+            <ul className="cs-list">
+              {study.worked.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+            <h3>Gaps & Improvement Areas</h3>
+            <p className="cs-copy-single">{study.gaps}</p>
+          </div>
+        </section>
+
+        <section className="cs-shell cs-two-column cs-bottom">
+          <div>
+            <SectionHeader eyebrow="11 Learnings" title="Key Learnings" />
+          </div>
+          <div className="cs-copy">
             {study.learnings.map((learning) => (
-              <article className="cs-point-card" key={learning}>
-                <p>{learning}</p>
-              </article>
+              <p key={learning}>{learning}</p>
             ))}
           </div>
         </section>
@@ -277,7 +335,7 @@ function RubeeCaseStudy({ onContactClick, project, study }) {
               <h1>{study.heroSubtitle}</h1>
               <p className="cs-date">{study.timeline}</p>
             </div>
-            <ImageFrame src={rubeeImages.hero} alt={project.title} />
+            <ImageFrame src={rubeeInfographic} alt={project.title} />
           </div>
         </section>
 
@@ -531,12 +589,13 @@ function RubeeCaseStudy({ onContactClick, project, study }) {
   );
 }
 
-function CaseStudy({ onContactClick }) {
+function CaseStudy({ onContactClick, caseSlug }) {
   const { slug } = useParams();
-  const project = projects.find((item) => item.slug === slug);
-  const study = caseStudies[slug];
+  const finalSlug = caseSlug || slug;
+  const project = projects.find((item) => item.slug === finalSlug);
+  const study = caseStudies[finalSlug];
 
-  if (slug === "rubee-app" && project && study) {
+  if (finalSlug === "rubee-app" && project && study) {
     return (
       <RubeeCaseStudy
         onContactClick={onContactClick}
@@ -546,7 +605,7 @@ function CaseStudy({ onContactClick }) {
     );
   }
 
-  if (slug === "nebula-analytics" && study) {
+  if (finalSlug === "nebula-analytics" && study) {
     return <BcfCaseStudy onContactClick={onContactClick} study={study} />;
   }
 

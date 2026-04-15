@@ -15,7 +15,7 @@ const projectCards = [
       "System design",
       "Conversational / Agentic AI",
     ],
-    href: "/work/nebula-analytics",
+    href: "/bcf",
     cta: "Open case study",
     image: bcfInfographic,
     interactiveMedia: true,

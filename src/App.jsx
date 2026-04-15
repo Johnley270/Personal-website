@@ -28,6 +28,10 @@ function App() {
           }
         />
         <Route
+          path="/bcf"
+          element={<CaseStudy onContactClick={openContact} caseSlug="nebula-analytics" />}
+        />
+        <Route
           path="/work/:slug"
           element={<CaseStudy onContactClick={openContact} />}
         />
