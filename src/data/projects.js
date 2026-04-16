@@ -50,7 +50,7 @@ export const projects = [
     category: "Finance App",
     description:
       "Effortlessly guiding users to a streamlined financial management experience.",
-    tags: ["UX Research", "Mobile", "Prototyping"],
+    tags: ["UI/UX Design", "Design Thinking", "Interaction Design", "B2C"],
     color: "#f59e0b",
     year: "2022",
   },

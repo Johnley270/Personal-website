@@ -656,6 +656,34 @@ function BcfCaseStudy({ onContactClick, onResumeClick, study }) {
 }
 
 function RubeeCaseStudy({ onContactClick, onResumeClick, project, study }) {
+  const [modalImage, setModalImage] = useState(null);
+
+  const handleImageClick = (src) => {
+    setModalImage(src);
+  };
+
+  const handleCloseModal = () => {
+    setModalImage(null);
+  };
+
+  const rubeeFlowImages = [
+    rubeeImages.flowA,
+    rubeeImages.flowB,
+    rubeeImages.flowC,
+    rubeeImages.flowD,
+    rubeeImages.flowE,
+    rubeeImages.flowF,
+  ];
+
+  const rubeeVisualImages = [
+    rubeeImages.visualA,
+    rubeeImages.visualB,
+    rubeeImages.visualC,
+    rubeeImages.visualD,
+    rubeeImages.visualE,
+    rubeeImages.visualF,
+  ];
+
   return (
     <>
       <Navbar onContactClick={onContactClick} onResumeClick={onResumeClick} />
@@ -671,256 +699,297 @@ function RubeeCaseStudy({ onContactClick, onResumeClick, project, study }) {
               <h1>{study.heroSubtitle}</h1>
               <p className="cs-date">{study.timeline}</p>
             </div>
-            <ImageFrame src={rubeeInfographic} alt={project.title} />
+            <ImageFrame src={rubeeInfographic} alt={project.title} onClick={() => handleImageClick(rubeeInfographic)} />
           </div>
         </section>
 
-        <section id="rubee-project-details" className="cs-shell cs-project-details">
-          <h2>Project Details</h2>
-          <DetailGrid
-            details={[
-              { label: "Timeline", value: study.timeline },
-              { label: "Tools", value: study.tools },
-              { label: "Team", value: study.team },
-            ]}
-          />
+        <section id="rubee-project-details" className="cs-shell cs-two-column cs-project-details">
+          <div>
+            <SectionHeader eyebrow="01 Snapshot" title="Project Details" />
+          </div>
+          <div>
+            <DetailGrid
+              details={[
+                { label: "Timeline", value: study.timeline },
+                { label: "Tools", value: study.tools },
+                { label: "Team", value: study.team },
+              ]}
+            />
+          </div>
         </section>
 
-        <section id="rubee-background" className="cs-shell cs-two-column">
+        <section id="rubee-background" className="cs-shell cs-two-column cs-problem">
           <div>
-            <SectionHeader title="Background" />
+            <SectionHeader eyebrow="02 Context" title="Background" />
+          </div>
+          <div className="cs-copy">
             <p className="cs-quote">"{study.background}"</p>
-          </div>
-          <div>
-            <SectionHeader title="About the Project" />
-            <div className="cs-copy">
-              {study.about.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
-            </div>
+            <h3>About the Project</h3>
+            {study.about.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
           </div>
         </section>
 
         <section id="rubee-problem" className="cs-shell cs-two-column cs-problem">
-          <SectionHeader title="What problem does this app aim to solve?" />
+          <div>
+            <SectionHeader eyebrow="03 Problem" title="Problem Definition" />
+          </div>
           <div className="cs-copy">
+            <h3>What problem does this app aim to solve?</h3>
             {study.problem.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
+            <div style={{ marginTop: "24px" }}>
+              <ImageFrame src={rubeeImages.overview} alt="Rubee problem overview" onClick={() => handleImageClick(rubeeImages.overview)} />
+            </div>
           </div>
-          <ImageFrame src={rubeeImages.overview} alt="" />
         </section>
 
         <section id="rubee-research" className="cs-wide-band">
-          <div className="cs-shell">
-            <SectionHeader title="Research and Analysis" />
-            <p className="cs-lead">{study.researchIntro}</p>
-            <div className="cs-two-column cs-spaced">
-              <div>
-                <h3>Research objectives</h3>
-                <ul className="cs-list">
-                  {study.researchObjectives.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <h3>Competitive Audit</h3>
-                <p className="cs-eyebrow">KEY FINDINGS</p>
-                <ul className="cs-list">
-                  {study.competitiveFindings.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
+          <div className="cs-shell cs-two-column">
+            <div>
+              <SectionHeader eyebrow="04 Research" title="Research & Analysis" />
             </div>
-            <div className="cs-image-pair">
-              <ImageFrame src={rubeeImages.auditA} alt="" />
-              <ImageFrame src={rubeeImages.auditB} alt="" />
+            <div>
+              <p className="cs-lead">{study.researchIntro}</p>
+              <div className="cs-two-column cs-spaced">
+                <div>
+                  <h3>Research objectives</h3>
+                  <ul className="cs-list">
+                    {study.researchObjectives.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <h3>Competitive Audit</h3>
+                  <p className="cs-eyebrow">KEY FINDINGS</p>
+                  <ul className="cs-list">
+                    {study.competitiveFindings.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <div className="cs-image-pair">
+                <ImageFrame src={rubeeImages.auditA} alt="Competitive audit screen 1" onClick={() => handleImageClick(rubeeImages.auditA)} />
+                <ImageFrame src={rubeeImages.auditB} alt="Competitive audit screen 2" onClick={() => handleImageClick(rubeeImages.auditB)} />
+              </div>
             </div>
           </div>
         </section>
 
-        <section id="rubee-primary-research" className="cs-shell">
-          <SectionHeader title="Primary Research" />
-          <p className="cs-lead">{study.primaryResearch}</p>
-          <div className="cs-research-links">
-            <span>Survey format</span>
-            <span>Interview format</span>
+        <section id="rubee-primary-research" className="cs-shell cs-two-column">
+          <div>
+            <SectionHeader eyebrow="05 Strategy" title="Primary Research" />
           </div>
-          <div className="cs-quotes-grid">
-            {study.userQuotes.map((quote) => (
-              <blockquote key={quote}>
-                <span>“</span>
-                {quote}
-                <span>”</span>
-              </blockquote>
-            ))}
-          </div>
-          <div className="cs-image-pair">
-            <ImageFrame src={rubeeImages.researchA} alt="" />
-            <ImageFrame src={rubeeImages.researchB} alt="" />
+          <div>
+            <p className="cs-lead">{study.primaryResearch}</p>
+            <div className="cs-research-links">
+              <span>Survey format</span>
+              <span>Interview format</span>
+            </div>
+            <div className="cs-quotes-grid">
+              {study.userQuotes.map((quote) => (
+                <blockquote key={quote}>
+                  <span>"</span>
+                  {quote}
+                  <span>"</span>
+                </blockquote>
+              ))}
+            </div>
+            <div className="cs-image-pair">
+              <ImageFrame src={rubeeImages.researchA} alt="Primary research artifact 1" onClick={() => handleImageClick(rubeeImages.researchA)} />
+              <ImageFrame src={rubeeImages.researchB} alt="Primary research artifact 2" onClick={() => handleImageClick(rubeeImages.researchB)} />
+            </div>
           </div>
         </section>
 
         <section id="rubee-consolidation" className="cs-shell cs-two-column">
           <div>
-            <SectionHeader title="Research Consolidation" />
-            <div className="cs-copy">
-              {study.researchConsolidation.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
-            </div>
+            <SectionHeader eyebrow="06 Iteration" title="Research Consolidation" />
           </div>
-          <ImageFrame src={rubeeImages.persona} alt="" />
-          <div className="cs-image-triplet">
-            <ImageFrame src={rubeeImages.consolidationA} alt="" />
-            <ImageFrame src={rubeeImages.consolidationB} alt="" />
-            <ImageFrame src={rubeeImages.consolidationC} alt="" />
+          <div className="cs-copy">
+            {study.researchConsolidation.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+            <div style={{ marginTop: "24px" }}>
+              <ImageFrame src={rubeeImages.persona} alt="Rubee persona" onClick={() => handleImageClick(rubeeImages.persona)} />
+            </div>
+            <div className="cs-image-triplet">
+              <ImageFrame src={rubeeImages.consolidationA} alt="Consolidation board 1" onClick={() => handleImageClick(rubeeImages.consolidationA)} />
+              <ImageFrame src={rubeeImages.consolidationB} alt="Consolidation board 2" onClick={() => handleImageClick(rubeeImages.consolidationB)} />
+              <ImageFrame src={rubeeImages.consolidationC} alt="Consolidation board 3" onClick={() => handleImageClick(rubeeImages.consolidationC)} />
+            </div>
           </div>
         </section>
 
         <section id="rubee-pain-points" className="cs-wide-band">
-          <div className="cs-shell">
-            <SectionHeader title="Pain points" />
-            <p className="cs-lead">
-              I have narrowed down the data from my research to four main pain
-              points that I will be focusing on in the next steps.
-            </p>
-            <div className="cs-card-grid">
-              {study.painPoints.map((point) => (
-                <article key={point.title} className="cs-point-card">
-                  <h3>{point.title}</h3>
-                  <p>{point.description}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="rubee-ideation" className="cs-shell">
-          <SectionHeader title="Ideation" />
-          <p className="cs-lead">{study.ideationIntro}</p>
-          <div className="cs-two-column cs-spaced">
+          <div className="cs-shell cs-two-column">
             <div>
-              <h3>Ideate</h3>
-              <p className="cs-copy-single">{study.ideationDetails}</p>
-              <a
-                className="cs-text-link"
-                href="https://drive.google.com"
-                target="_blank"
-                rel="noreferrer"
-              >
-                HMW Questions
-              </a>
+              <SectionHeader eyebrow="07 Feedback" title="Pain Points" />
             </div>
             <div>
-              <h3>Major Solutions & Design Approach</h3>
-              <ul className="cs-list">
-                {study.designApproach.map((item) => (
-                  <li key={item}>{item}</li>
+              <p className="cs-lead">
+                I have narrowed down the data from my research to four main pain
+                points that I will be focusing on in the next steps.
+              </p>
+              <div className="cs-card-grid">
+                {study.painPoints.map((point) => (
+                  <article key={point.title} className="cs-point-card">
+                    <h3>{point.title}</h3>
+                    <p>{point.description}</p>
+                  </article>
                 ))}
-              </ul>
+              </div>
             </div>
           </div>
         </section>
 
-        <section id="rubee-wireframes" className="cs-shell">
-          <SectionHeader title="WIreframes" />
-          <p className="cs-lead">{study.wireframesIntro}</p>
-          <a
-            className="cs-text-link"
-            href="https://www.behance.net"
-            target="_blank"
-            rel="noreferrer"
-          >
-            View Detailedprocess on Behance
-          </a>
-          <ImageFrame src={rubeeImages.wireframes} alt="" />
-        </section>
-
-        <section id="rubee-user-flows" className="cs-shell">
-          <SectionHeader title="User flows" />
-          <div className="cs-tab-row">
-            <span>Information Architecture</span>
-            <span>Task flow</span>
+        <section id="rubee-ideation" className="cs-shell cs-two-column">
+          <div>
+            <SectionHeader eyebrow="08 Ideation" title="Ideation" />
           </div>
-          <div className="cs-flow-grid">
-            {[
-              rubeeImages.flowA,
-              rubeeImages.flowB,
-              rubeeImages.flowC,
-              rubeeImages.flowD,
-              rubeeImages.flowE,
-              rubeeImages.flowF,
-            ].map((src) => (
-              <ImageFrame key={src} src={src} alt="" />
-            ))}
+          <div>
+            <p className="cs-lead">{study.ideationIntro}</p>
+            <div className="cs-two-column cs-spaced">
+              <div>
+                <h3>Ideate</h3>
+                <p className="cs-copy-single">{study.ideationDetails}</p>
+                <a
+                  className="cs-text-link"
+                  href="https://drive.google.com"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  HMW Questions
+                </a>
+              </div>
+              <div>
+                <h3>Major Solutions & Design Approach</h3>
+                <ul className="cs-list">
+                  {study.designApproach.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
         </section>
 
-        <section id="rubee-user-testing" className="cs-shell">
-          <SectionHeader title="User Testing" />
-          <p className="cs-lead">I asked a few users to give feedback of the app.</p>
-        </section>
-
-        <section id="rubee-visual-design" className="cs-wide-band">
-          <div className="cs-shell">
-            <SectionHeader title="Visual Design" />
-            <p className="cs-lead">
-              Visual designs not optimised for viewing in screen size of this
-              resolution
-            </p>
-            <p className="cs-lead">Open in desktop for best experience or</p>
+        <section id="rubee-wireframes" className="cs-shell cs-two-column">
+          <div>
+            <SectionHeader eyebrow="09 Visuals" title="Wireframes" />
+          </div>
+          <div>
+            <p className="cs-lead">{study.wireframesIntro}</p>
             <a
               className="cs-text-link"
               href="https://www.behance.net"
               target="_blank"
               rel="noreferrer"
             >
-              View in Behance
+              View Detailedprocess on Behance
             </a>
-            <div className="cs-visual-grid">
-              {[
-                rubeeImages.visualA,
-                rubeeImages.visualB,
-                rubeeImages.visualC,
-                rubeeImages.visualD,
-                rubeeImages.visualE,
-                rubeeImages.visualF,
-              ].map((src) => (
-                <ImageFrame key={src} src={src} alt="" />
+            <div style={{ marginTop: "20px" }}>
+              <ImageFrame src={rubeeImages.wireframes} alt="Rubee wireframes" onClick={() => handleImageClick(rubeeImages.wireframes)} />
+            </div>
+          </div>
+        </section>
+
+        <section id="rubee-user-flows" className="cs-shell cs-two-column">
+          <div>
+            <SectionHeader eyebrow="10 Flows" title="User Flows" />
+          </div>
+          <div>
+            <div className="cs-tab-row">
+              <span>Information Architecture</span>
+              <span>Task flow</span>
+            </div>
+            <div className="cs-flow-grid">
+              {rubeeFlowImages.map((src) => (
+                <ImageFrame key={src} src={src} alt="Rubee user flow" onClick={() => handleImageClick(src)} />
               ))}
             </div>
           </div>
         </section>
 
-        <section id="rubee-final-design" className="cs-shell cs-feature-stack">
-          {study.features.map((feature) => (
-            <article key={feature.title} className="cs-feature-row">
-              <h2>{feature.title}</h2>
-              <p>{feature.body}</p>
-            </article>
-          ))}
-          <div className="cs-image-pair">
-            <ImageFrame src={rubeeImages.graphA} alt="" />
-            <ImageFrame src={rubeeImages.graphB} alt="" />
+        <section id="rubee-user-testing" className="cs-wide-band">
+          <div className="cs-shell cs-two-column">
+            <div>
+              <SectionHeader eyebrow="11 Validation" title="User Testing" />
+            </div>
+            <div>
+              <p className="cs-lead">I asked a few users to give feedback of the app.</p>
+            </div>
           </div>
-          <ImageFrame src={rubeeImages.final} alt="" />
         </section>
 
-        <section id="rubee-learnings" className="cs-shell cs-bottom">
-          <SectionHeader title="Key Learnings" />
-          <div className="cs-card-grid">
-            {study.learnings.map((learning) => (
-              <article className="cs-point-card" key={learning}>
-                <p>{learning}</p>
+        <section id="rubee-visual-design" className="cs-wide-band">
+          <div className="cs-shell cs-two-column">
+            <div>
+              <SectionHeader eyebrow="12 Visuals" title="Visual Design" />
+            </div>
+            <div>
+              <p className="cs-lead">
+                Visual designs not optimised for viewing in screen size of this
+                resolution
+              </p>
+              <p className="cs-lead">Open in desktop for best experience or</p>
+              <a
+                className="cs-text-link"
+                href="https://www.behance.net"
+                target="_blank"
+                rel="noreferrer"
+              >
+                View in Behance
+              </a>
+              <div className="cs-visual-grid">
+                {rubeeVisualImages.map((src) => (
+                  <ImageFrame key={src} src={src} alt="Rubee visual design" onClick={() => handleImageClick(src)} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="rubee-final-design" className="cs-shell cs-two-column cs-feature-stack">
+          <div>
+            <SectionHeader eyebrow="13 Outcome" title="Final Design" />
+          </div>
+          <div>
+            {study.features.map((feature) => (
+              <article key={feature.title} className="cs-feature-row">
+                <h2>{feature.title}</h2>
+                <p>{feature.body}</p>
               </article>
             ))}
+            <div className="cs-image-pair">
+              <ImageFrame src={rubeeImages.graphA} alt="Rubee graph screen 1" onClick={() => handleImageClick(rubeeImages.graphA)} />
+              <ImageFrame src={rubeeImages.graphB} alt="Rubee graph screen 2" onClick={() => handleImageClick(rubeeImages.graphB)} />
+            </div>
+            <ImageFrame src={rubeeImages.final} alt="Rubee final design" onClick={() => handleImageClick(rubeeImages.final)} />
+          </div>
+        </section>
+
+        <section id="rubee-learnings" className="cs-shell cs-two-column cs-bottom">
+          <div>
+            <SectionHeader eyebrow="14 Learnings" title="Key Learnings" />
+          </div>
+          <div>
+            <div className="cs-card-grid">
+              {study.learnings.map((learning) => (
+                <article className="cs-point-card" key={learning}>
+                  <p>{learning}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
       </main>
       <Footer onContactClick={onContactClick} />
+      {modalImage && <ImageModal src={modalImage} onClose={handleCloseModal} />}
     </>
   );
 }

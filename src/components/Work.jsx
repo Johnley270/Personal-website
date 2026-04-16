@@ -22,10 +22,10 @@ const projectCards = [
   {
     title: "Rubee App: Designing a Simpler Personal Finance Experience",
     tags: [
-      "Enterprise Saas",
-      "No Code Workflow",
-      "System design",
-      "Conversational / Agentic AI",
+      "UI/UX Design",
+      "Design Thinking",
+      "Interaction Design",
+      "B2C",
     ],
     href: "/work/rubee-app",
     cta: "Open case study",
