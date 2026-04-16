@@ -341,8 +341,8 @@ function BcfCaseStudy({ onContactClick, study }) {
             <p className="cs-lead">{study.iterationIntro}</p>
             {study.iterationCards ? (
               <div className="cs-copy">
-                {study.iterationCards.map((card) => (
-                  <div key={card.title}>
+                {study.iterationCards.map((card, index) => (
+                  <div key={card.title} style={{ marginTop: index > 0 ? "40px" : "0" }}>
                     <h3>{card.title}</h3>
                     {card.intro && <p>{card.intro}</p>}
                     {card.assessLabel && <p className="cs-analysis-label">{card.assessLabel}</p>}
@@ -374,33 +374,35 @@ function BcfCaseStudy({ onContactClick, study }) {
                 )}
               </>
             )}
-            <h3>Prototype With Realistic Scenarios</h3>
-            <div className="cs-copy">
-              <p>{study.prototypeIntro}</p>
-              {study.prototypeFeatures && (
-                <ul className="cs-analysis-list">
-                  {study.prototypeFeatures.map((feature) => (
-                    <li key={feature}>{feature}</li>
-                  ))}
-                </ul>
-              )}
-              <p>{study.prototypeOutro}</p>
-              {study.prototypeFeedbackPoints && (
-                <ul className="cs-analysis-list">
-                  {study.prototypeFeedbackPoints.map((point) => (
-                    <li key={point}>{point}</li>
-                  ))}
-                </ul>
-              )}
+            <div style={{ marginTop: "40px" }}>
+              <h3>Prototype With Realistic Scenarios</h3>
+              <div className="cs-copy">
+                <p>{study.prototypeIntro}</p>
+                {study.prototypeFeatures && (
+                  <ul className="cs-analysis-list">
+                    {study.prototypeFeatures.map((feature) => (
+                      <li key={feature}>{feature}</li>
+                    ))}
+                  </ul>
+                )}
+                <p>{study.prototypeOutro}</p>
+                {study.prototypeFeedbackPoints && (
+                  <ul className="cs-analysis-list">
+                    {study.prototypeFeedbackPoints.map((point) => (
+                      <li key={point}>{point}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+              <a
+                className="cs-text-link"
+                href={study.prototypeLink}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Open Figma prototype
+              </a>
             </div>
-            <a
-              className="cs-text-link"
-              href={study.prototypeLink}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Open Figma prototype
-            </a>
           </div>
         </section>
 
