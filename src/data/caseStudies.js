@@ -158,7 +158,8 @@ export const caseStudies = {
       },
       {
         title: '🧪 Framing Research for Impact',
-        intro: 'Throughout the process, I regularly asked: "How will this feature feel to someone who\'s never built a bot before?"',
+        intro: 'Throughout the process, I regularly asked:',
+        highlightLine: '"How will this feature feel to someone who\'s never built a bot before?"',
         assessLabel: 'I kept aligning the research back to:',
         assessPoints: [
           '➡️ Ease of understanding',
@@ -167,6 +168,7 @@ export const caseStudies = {
         ],
       },
     ],
+    iterationCardImages: ['bcf-1', 'bcf-2', 'bcf-3', 'bcf-4', 'bcf-5', 'bcf-6'],
     prototypeIntro: 'To simulate a real-world use case, I created an end-to-end prototype of a movie ticket booking bot.',
     prototypeFeatures: [
       '✅ Intent setup (e.g., "Book a ticket", "Check ticket status")',
@@ -183,12 +185,13 @@ export const caseStudies = {
     ],
     prototypeLink:
       'https://www.figma.com/design/kxAmPLUAhrvs9ac9SbjtFB/BCF_for-embed?node-id=1-1188&t=1avwYKjAHm2XKs09-1',
-    feedbackIntro: 'To validate core usability and flow clarity, I conducted guided user testing sessions with internal team members across support, marketing, and operations. Rather than a full-blown, high-fidelity prototype, I used a click-based directional prototype that walked users through one pre-defined path of the bot-building process.',
-    feedbackContext: 'While this limited organic exploration, it helped in surfacing immediate points of confusion, hesitation, or delight.',
+    feedbackIntro: 'To validate core usability and flow clarity, I conducted guided user testing sessions with internal team members across support, marketing, and operations.',
+    feedbackContext: 'Rather than a full-blown, high-fidelity prototype, I used a click-based directional prototype that walked users through one pre-defined path of the bot-building process.',
+    feedbackOutro: 'While this limited organic exploration, it helped in surfacing immediate points of confusion, hesitation, or delight.',
     feedback: [
       'Editing a node felt disconnected',
       'Users forgot what a node was doing',
-      'Preview panel is little disconnected',
+      'Preview panel is little disconnected.',
     ],
     iterations: [
       'Improving visual distinction between different node types',
@@ -197,7 +200,13 @@ export const caseStudies = {
       'Soft shadows and contrast for accessibility',
       'Grouping the flows for simplicity',
     ],
-    limitedInteractivity: 'Limited Interactivity in Testing. The prototype used for early user testing was linear and guided, which meant: Users couldn\'t explore freely or test edge cases. We couldn\'t measure how users would behave in less predictable scenarios. It missed opportunities to uncover issues in more advanced features (like branching or editing existing flows). Scalability testing (e.g., 100+ node flows) was not deeply explored in the prototype.',
+    limitedInteractivityIntro: 'The prototype used for early user testing was linear and guided, which meant:',
+    limitedInteractivityPoints: [
+      'Users couldn\'t explore freely or test edge cases',
+      'We couldn\'t measure how users would behave in less predictable scenarios',
+      'It missed opportunities to uncover issues in more advanced features (like branching or editing existing flows)',
+      'Scalability testing (e.g., 100+ node flows) was not deeply explored in the prototype.',
+    ],
     visualIntro:
       'After iterations based on internal feedback, I moved into the visual design phase. The aesthetic was purposefully neutral and approachable — friendly but not cartoonish, simple but not bare.',
     visualDecisions: [
@@ -222,8 +231,16 @@ export const caseStudies = {
       'Systems thinking',
       'Rapid iteration',
       'Cross-functional collaboration',
-      'But my biggest growth came from the people side of product design. From cross-functional collaboration to stakeholder communication, I learned how essential it is to: Ask better questions. Understand different perspectives. Bring others into the design process. Sometimes, that meant advocating for a micro-interaction or a custom layout — not because it was easy, but because it made the experience feel thoughtful and intentional. Getting buy-in for those details while maintaining trust and forward motion taught me that good design is as much about relationships as it is about pixels.',
     ],
+    learningsPeopleIntro: 'But my biggest growth came from the people side of product design.',
+    learningsPeopleContext: 'From cross-functional collaboration to stakeholder communication, I learned how essential it is to:',
+    learningsPeoplePoints: [
+      'Ask better questions',
+      'Understand different perspectives',
+      'Bring others into the design process',
+    ],
+    learningsPeopleOutro:
+      'Sometimes, that meant advocating for a micro-interaction or a custom layout — not because it was easy, but because it made the experience feel thoughtful and intentional. Getting buy-in for those details while maintaining trust and forward motion taught me that good design is as much about relationships as it is about pixels.',
   },
   'flowkit-design-system': null,
   'pulse-health': null,

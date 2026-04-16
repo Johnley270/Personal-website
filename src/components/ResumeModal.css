@@ -1,0 +1,111 @@
+.resume-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 220;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(14px, 2vw, 28px);
+  background: rgba(6, 24, 23, 0.52);
+  backdrop-filter: blur(6px);
+}
+
+.resume-modal {
+  width: min(1160px, 100%);
+  height: min(88vh, 840px);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  border: 1px solid rgba(0, 119, 115, 0.22);
+  border-radius: 18px;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(250, 253, 252, 0.98), rgba(245, 250, 248, 0.98));
+  box-shadow: 0 22px 62px rgba(6, 20, 18, 0.4);
+}
+
+.resume-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(0, 119, 115, 0.16);
+}
+
+.resume-modal-header h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #073b38;
+}
+
+.resume-modal-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.resume-modal-action,
+.resume-modal-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 34px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 119, 115, 0.2);
+  background: rgba(255, 255, 255, 0.95);
+  color: #0b4d49;
+  padding: 0 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.resume-modal-action:hover,
+.resume-modal-close:hover {
+  border-color: rgba(0, 119, 115, 0.48);
+  background: rgba(0, 119, 115, 0.08);
+}
+
+.resume-modal-close {
+  width: 34px;
+  padding: 0;
+}
+
+.resume-modal-frame-wrap {
+  min-height: 0;
+  background: #f2f7f5;
+}
+
+.resume-modal-frame {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .resume-modal {
+    width: 100%;
+    height: min(90vh, 820px);
+    border-radius: 14px;
+  }
+
+  .resume-modal-header {
+    padding: 12px;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .resume-modal-actions {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+}

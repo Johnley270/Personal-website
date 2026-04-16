@@ -5,14 +5,18 @@ import Hero from "./components/Hero";
 import Work from "./components/Work";
 import Footer from "./components/Footer";
 import ContactModal from "./components/ContactModal";
+import ResumeModal from "./components/ResumeModal";
 import BackToTopFab from "./components/BackToTopFab";
 import CaseStudy from "./pages/CaseStudy";
 import "./App.css";
 
 function App() {
   const [contactOpen, setContactOpen] = useState(false);
+  const [resumeOpen, setResumeOpen] = useState(false);
   const openContact = () => setContactOpen(true);
   const closeContact = () => setContactOpen(false);
+  const openResume = () => setResumeOpen(true);
+  const closeResume = () => setResumeOpen(false);
 
   return (
     <div className="app">
@@ -21,7 +25,7 @@ function App() {
           path="/"
           element={
             <>
-              <Navbar onContactClick={openContact} />
+              <Navbar onContactClick={openContact} onResumeClick={openResume} />
               <Hero onContactClick={openContact} />
               <Work />
               <Footer onContactClick={openContact} />
@@ -30,14 +34,21 @@ function App() {
         />
         <Route
           path="/bcf"
-          element={<CaseStudy onContactClick={openContact} caseSlug="nebula-analytics" />}
+          element={
+            <CaseStudy
+              onContactClick={openContact}
+              onResumeClick={openResume}
+              caseSlug="nebula-analytics"
+            />
+          }
         />
         <Route
           path="/work/:slug"
-          element={<CaseStudy onContactClick={openContact} />}
+          element={<CaseStudy onContactClick={openContact} onResumeClick={openResume} />}
         />
       </Routes>
       <ContactModal isOpen={contactOpen} onClose={closeContact} />
+      <ResumeModal isOpen={resumeOpen} onClose={closeResume} />
       <BackToTopFab />
     </div>
   );

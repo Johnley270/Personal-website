@@ -4,9 +4,10 @@ import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 
-function Navbar({ onContactClick }) {
+function Navbar({ onContactClick, onResumeClick }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const ENABLE_PROGRESS_RIBBON = true;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -46,9 +47,13 @@ function Navbar({ onContactClick }) {
           </ul>
 
           <div className="navbar-actions">
-            <a href="#resume" className="navbar-action navbar-action-secondary">
+            <button
+              type="button"
+              onClick={onResumeClick}
+              className="navbar-action navbar-action-secondary"
+            >
               Resume
-            </a>
+            </button>
             <button
               onClick={onContactClick}
               className="navbar-action navbar-action-primary"
@@ -68,20 +73,25 @@ function Navbar({ onContactClick }) {
         </button>
       </div>
 
-      <div
-        className="navbar-ribbon"
-        aria-label="Vibe coding in progress. AI-assisted build in motion. Layout may evolve while experiments compile."
-      >
-        <div className="navbar-ribbon-track">
-          {Array.from({ length: 2 }).map((_, index) => (
-            <div className="navbar-ribbon-group" key={index} aria-hidden={index > 0}>
-              <span>Vibe coding in progress</span>
-              <span>AI-assisted build in motion</span>
-              <span>Layout may evolve while experiments compile</span>
-            </div>
-          ))}
+      {ENABLE_PROGRESS_RIBBON && (
+        <div
+          className="navbar-ribbon"
+          aria-label="Skills: Interaction Design, System Thinking, Creative Problem Solving, User Research, Prototyping, Design Strategy"
+        >
+          <div className="navbar-ribbon-track">
+            {Array.from({ length: 2 }).map((_, index) => (
+              <div className="navbar-ribbon-group" key={index} aria-hidden={index > 0}>
+                <span>Interaction Design</span>
+                <span>System Thinking</span>
+                <span>Creative Problem Solving</span>
+                <span>User Research</span>
+                <span>Prototyping</span>
+                <span>Design Strategy</span>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       <AnimatePresence>
         {menuOpen && (
@@ -105,13 +115,16 @@ function Navbar({ onContactClick }) {
                 {link.label}
               </Motion.a>
             ))}
-            <a
-              href="#resume"
+            <button
+              type="button"
               className="mobile-action mobile-action-secondary"
-              onClick={() => setMenuOpen(false)}
+              onClick={() => {
+                setMenuOpen(false);
+                onResumeClick();
+              }}
             >
               Resume
-            </a>
+            </button>
             <button
               className="mobile-action mobile-action-primary"
               onClick={() => {
