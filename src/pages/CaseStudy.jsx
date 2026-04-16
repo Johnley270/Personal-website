@@ -340,27 +340,21 @@ function BcfCaseStudy({ onContactClick, study }) {
           <div>
             <p className="cs-lead">{study.iterationIntro}</p>
             {study.iterationCards ? (
-              <div className="cs-card-grid cs-discovery-grid">
+              <div className="cs-copy">
                 {study.iterationCards.map((card) => (
-                  <article className="cs-point-card" key={card.title}>
+                  <div key={card.title}>
                     <h3>{card.title}</h3>
-                    {card.intro ? (
-                      <div className="cs-copy">
-                        <p>{card.intro}</p>
-                        {card.assessLabel && <p className="cs-analysis-label">{card.assessLabel}</p>}
-                        {card.assessPoints && (
-                          <ul className="cs-analysis-list">
-                            {card.assessPoints.map((point) => (
-                              <li key={point}>{point}</li>
-                            ))}
-                          </ul>
-                        )}
-                        {card.outro && <p>{card.outro}</p>}
-                      </div>
-                    ) : (
-                      <p>{card.body}</p>
+                    {card.intro && <p>{card.intro}</p>}
+                    {card.assessLabel && <p className="cs-analysis-label">{card.assessLabel}</p>}
+                    {card.assessPoints && (
+                      <ul className="cs-analysis-list">
+                        {card.assessPoints.map((point) => (
+                          <li key={point}>{point}</li>
+                        ))}
+                      </ul>
                     )}
-                  </article>
+                    {card.outro && <p>{card.outro}</p>}
+                  </div>
                 ))}
               </div>
             ) : (
