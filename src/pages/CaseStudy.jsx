@@ -339,18 +339,46 @@ function BcfCaseStudy({ onContactClick, study }) {
           </div>
           <div>
             <p className="cs-lead">{study.iterationIntro}</p>
-            <h3>Mid-Fidelity Wireframes</h3>
-            <ul className="cs-list">
-              {study.wireframes.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-            {study.iterationDetails && (
-              <div className="cs-copy" style={{ marginTop: "24px" }}>
-                {study.iterationDetails.map((detail) => (
-                  <p key={detail}>{detail}</p>
+            {study.iterationCards ? (
+              <div className="cs-card-grid cs-discovery-grid">
+                {study.iterationCards.map((card) => (
+                  <article className="cs-point-card" key={card.title}>
+                    <h3>{card.title}</h3>
+                    {card.intro ? (
+                      <div className="cs-copy">
+                        <p>{card.intro}</p>
+                        {card.assessLabel && <p className="cs-analysis-label">{card.assessLabel}</p>}
+                        {card.assessPoints && (
+                          <ul className="cs-analysis-list">
+                            {card.assessPoints.map((point) => (
+                              <li key={point}>{point}</li>
+                            ))}
+                          </ul>
+                        )}
+                        {card.outro && <p>{card.outro}</p>}
+                      </div>
+                    ) : (
+                      <p>{card.body}</p>
+                    )}
+                  </article>
                 ))}
               </div>
+            ) : (
+              <>
+                <h3>Mid-Fidelity Wireframes</h3>
+                <ul className="cs-list">
+                  {study.wireframes.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+                {study.iterationDetails && (
+                  <div className="cs-copy" style={{ marginTop: "24px" }}>
+                    {study.iterationDetails.map((detail) => (
+                      <p key={detail}>{detail}</p>
+                    ))}
+                  </div>
+                )}
+              </>
             )}
             <h3>Prototype With Realistic Scenarios</h3>
             <p className="cs-copy-single">{study.prototype}</p>

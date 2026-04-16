@@ -138,16 +138,34 @@ export const caseStudies = {
         ],
       },
     ],
-    iterationIntro: 'Sketches → Wireframes → Prototype. Sketching Fast, Validating Early. I began with quick sketches for each core function — like adding message blocks, connecting steps, defining conditions — and shared them in informal reviews with SMEs. This allowed us to test conceptual clarity early without investing in high-fidelity mockups.',
-    iterationDetails: [
-      'Mid-Fidelity Wireframes. Once sketches were aligned, I developed mid-fidelity wireframes to solidify: Layout structure. Information hierarchy. Interaction flow (e.g., drag & drop logic, connection lines, nested nodes). Contextual settings for each block (e.g., message text, input type, API triggers). Each of these became a mini design sprint or micro-task, validated through SME conversations or quick usability feedback loops. These wireframes became a living design system — evolving as new use cases emerged.',
-      'Framing Research for Impact. Throughout the process, I regularly asked: How will this feature feel to someone who\'s never built a bot before? I kept aligning the research back to: Ease of understanding. Visual hierarchy of actions. User confidence and control.',
-    ],
-    wireframes: [
-      'Layout structure',
-      'Information hierarchy',
-      'Interaction flow (e.g., drag & drop logic, connection lines, nested nodes)',
-      'Contextual settings for each block (e.g., message text, input type, API triggers)',
+    iterationIntro: 'Sketches → Wireframes → Prototype',
+    iterationCards: [
+      {
+        title: '✏️ Sketching Fast, Validating Early',
+        intro: 'I began with quick sketches for each core function — like adding message blocks, connecting steps, defining conditions — and shared them in informal reviews with SMEs.',
+        outro: 'This allowed us to test conceptual clarity early without investing in high-fidelity mockups.',
+      },
+      {
+        title: '📐 Mid-Fidelity Wireframes',
+        intro: 'Once sketches were aligned, I developed mid-fidelity wireframes to solidify:',
+        assessPoints: [
+          '✅ Layout structure',
+          '✅ Information hierarchy',
+          '✅ Interaction flow (e.g., drag & drop logic, connection lines, nested nodes)',
+          '✅ Contextual settings for each block (e.g., message text, input type, API triggers)',
+        ],
+        outro: 'Each of these became a mini design sprint or micro-task, validated through SME conversations or quick usability feedback loops. These wireframes became a living design system — evolving as new use cases emerged.',
+      },
+      {
+        title: '🧪 Framing Research for Impact',
+        intro: 'Throughout the process, I regularly asked: "How will this feature feel to someone who\'s never built a bot before?"',
+        assessLabel: 'I kept aligning the research back to:',
+        assessPoints: [
+          '➡️ Ease of understanding',
+          '➡️ Visual hierarchy of actions',
+          '➡️ User confidence and control',
+        ],
+      },
     ],
     prototype:
       'To simulate a real-world use case, I created an end-to-end prototype of a movie ticket booking bot. This example combined key features: Intent setup (e.g., "Book a ticket", "Check ticket status"). Conditional logic. Input handling. Dynamic API calls. Carousel components for ticket options. This working prototype was presented to stakeholders, triggering valuable feedback around: Visibility of logic paths. Ease of tracing a user journey. Clarity of node functions.',
