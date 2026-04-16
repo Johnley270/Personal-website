@@ -1,11 +1,16 @@
-import { Copy } from "lucide-react";
+import { useState } from "react";
+import { Copy, Check } from "lucide-react";
 import "./Footer.css";
 
-const email = "johnley270@gmail.com";
+const email = "johnley.batchu@gmail.com";
 
 function Footer() {
+  const [copied, setCopied] = useState(false);
+
   const copyEmail = () => {
     navigator.clipboard?.writeText(email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -20,17 +25,22 @@ function Footer() {
 
         <div className="footer-row">
           <div className="footer-socials">
-            <a href="#" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.linkedin.com/in/johnley-batchu-805b96184/" target="_blank" rel="noopener noreferrer">
               linkedin
             </a>
-            <a href="#" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.behance.net/john_ley" target="_blank" rel="noopener noreferrer">
               Behance
             </a>
           </div>
 
-          <button className="footer-email" type="button" onClick={copyEmail}>
+          <button className="footer-email" type="button" onClick={copyEmail} title="Click to copy email">
             <span>{email}</span>
-            <Copy size={26} strokeWidth={1.8} />
+            {copied ? (
+              <Check size={26} strokeWidth={1.8} className="footer-email-icon" />
+            ) : (
+              <Copy size={26} strokeWidth={1.8} className="footer-email-icon" />
+            )}
+            {copied && <span className="footer-email-tooltip">Copied!</span>}
           </button>
         </div>
 

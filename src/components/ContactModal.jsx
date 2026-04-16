@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Send, CheckCircle } from "lucide-react";
+import { X, Send, CheckCircle, MessageCircle } from "lucide-react";
 import "./ContactModal.css";
 
 function ContactModal({ isOpen, onClose }) {
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    project: "",
+    purpose: "",
     message: "",
   });
 
@@ -16,14 +18,82 @@ function ContactModal({ isOpen, onClose }) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleWhatsApp = (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({ name: "", email: "", project: "", message: "" });
-      onClose();
-    }, 2000);
+
+    const purposeLabelMap = {
+      "work-opportunity": "Work Opportunity",
+      "career-guidance": "Career Guidance",
+      networking: "Networking",
+      "just-saying-hi": "Just Saying Hi",
+    };
+
+    const selectedPurpose = purposeLabelMap[formData.purpose] || formData.purpose;
+    const message = formData.message.trim() || "No message provided.";
+    const whatsappMessage = [
+      "Hi Johnley!",
+      "",
+      `*Name:* ${formData.name}`,
+      `*Email:* ${formData.email}`,
+      `*Purpose:* ${selectedPurpose}`,
+      "",
+      `*Message:*`,
+      message,
+    ].join("%0A");
+
+    const whatsappUrl = `https://wa.me/917032479054?text=${whatsappMessage}`;
+    window.open(whatsappUrl, "_blank");
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setSubmitError("");
+
+    const purposeLabelMap = {
+      "work-opportunity": "Work Opportunity",
+      "career-guidance": "Career Guidance",
+      networking: "Networking",
+      "just-saying-hi": "Just Saying Hi",
+    };
+
+    const selectedPurpose = purposeLabelMap[formData.purpose] || formData.purpose;
+    const message = formData.message.trim() || "No message provided.";
+    const payload = {
+      name: formData.name,
+      email: formData.email,
+      purpose: selectedPurpose,
+      message,
+      _subject: `Portfolio Reachout: ${selectedPurpose}`,
+      _captcha: "false",
+      _template: "table",
+    };
+
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/johnley.batchu@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error("Unable to send message");
+      }
+
+      setSubmitted(true);
+      setLoading(false);
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormData({ name: "", email: "", purpose: "", message: "" });
+        onClose();
+      }, 2000);
+    } catch {
+      setLoading(false);
+      setSubmitError("Unable to send right now. Please try again in a moment.");
+    }
   };
 
   return (
@@ -45,6 +115,7 @@ function ContactModal({ isOpen, onClose }) {
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             onClick={(e) => e.stopPropagation()}
           >
+            {loading && <div className="modal-progress-bar" />}
             <button
               className="modal-close"
               onClick={onClose}
@@ -93,7 +164,6 @@ function ContactModal({ isOpen, onClose }) {
                           placeholder="Your name"
                           value={formData.name}
                           onChange={handleChange}
-                          required
                         />
                       </div>
                       <div className="form-group">
@@ -105,28 +175,25 @@ function ContactModal({ isOpen, onClose }) {
                           placeholder="you@example.com"
                           value={formData.email}
                           onChange={handleChange}
-                          required
                         />
                       </div>
                     </div>
 
                     <div className="form-group">
-                      <label htmlFor="project">Project type</label>
+                      <label htmlFor="purpose">Reachout purpose</label>
                       <select
-                        id="project"
-                        name="project"
-                        value={formData.project}
+                        id="purpose"
+                        name="purpose"
+                        value={formData.purpose}
                         onChange={handleChange}
-                        required
                       >
                         <option value="" disabled>
-                          Select a project type
+                          Select a reachout purpose
                         </option>
-                        <option value="saas">SaaS Product Design</option>
-                        <option value="design-system">Design System</option>
-                        <option value="mobile">Mobile App</option>
-                        <option value="website">Website / Landing Page</option>
-                        <option value="other">Other</option>
+                        <option value="work-opportunity">Work Opportunity</option>
+                        <option value="career-guidance">Career Guidance</option>
+                        <option value="networking">Networking</option>
+                        <option value="just-saying-hi">Just Saying Hi</option>
                       </select>
                     </div>
 
@@ -135,7 +202,7 @@ function ContactModal({ isOpen, onClose }) {
                       <textarea
                         id="message"
                         name="message"
-                        placeholder="Tell me about your project..."
+                        placeholder="Write your message..."
                         rows={4}
                         value={formData.message}
                         onChange={handleChange}
@@ -143,15 +210,31 @@ function ContactModal({ isOpen, onClose }) {
                       />
                     </div>
 
-                    <motion.button
-                      type="submit"
-                      className="modal-submit"
-                      whileHover={{ scale: 1.01, y: -1 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      Send message
-                      <Send size={16} />
-                    </motion.button>
+                    <div className="modal-button-group">
+                      <motion.button
+                        type="submit"
+                        className="modal-submit"
+                        disabled={loading}
+                        whileHover={loading ? {} : { scale: 1.01, y: -1 }}
+                        whileTap={loading ? {} : { scale: 0.98 }}
+                        style={{ opacity: loading ? 0.6 : 1, cursor: loading ? "not-allowed" : "pointer" }}
+                      >
+                        {loading ? "Sending..." : "Send message"}
+                        <Send size={16} />
+                      </motion.button>
+                      <motion.button
+                        type="button"
+                        onClick={handleWhatsApp}
+                        className="modal-submit-secondary"
+                        whileHover={{ scale: 1.01, y: -1 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        WhatsApp
+                        <MessageCircle size={16} />
+                      </motion.button>
+                    </div>
+
+                    {submitError ? <p className="modal-error">{submitError}</p> : null}
                   </form>
                 </motion.div>
               )}
