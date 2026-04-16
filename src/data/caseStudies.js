@@ -105,16 +105,38 @@ export const caseStudies = {
         postAssessImageAlt: 'Emergent personas',
       },
     ],
-    strategyIntro: 'With clarity on the real-world pain points, I began breaking down the complexity of conversational logic into digestible building blocks.',
-    strategyPoints: [
-      'Modular Thinking: Designing in Chunks. Broke the problem into modular UX challenges (e.g., linking nodes, setting conditions). Validated each chunk independently. Continuously mapped back to the big picture (the full bot experience). This allowed focused design, easier testing, and faster iteration.',
-      'Breaking the Problem Down. How do we represent logic and flow visually? How do we simplify branching without oversimplifying? How can we make conversation nodes feel "natural" to create and connect?',
-    ],
-    principles: [
-      'Clarity: Even first-time users should understand how to start',
-      'Flexibility: Should support both simple FAQ bots and complex flows',
-      'Feedback: Immediate preview or validation of each step',
-      'Progressive Disclosure: Start simple, reveal complexity only when needed',
+    designStrategyIntro: 'With clarity on the real-world pain points, I began breaking down the complexity of conversational logic into digestible building blocks.',
+    designStrategyCards: [
+      {
+        title: '🧱 Modular Thinking: Designing in Chunks',
+        intro: 'Broke the problem into modular UX challenges (e.g., linking nodes, setting conditions).',
+        assessPoints: [
+          '➡️ Broke the problem into modular UX challenges (e.g., linking nodes, setting conditions).',
+          '➡️ Validated each chunk independently.',
+          '➡️ Continuously mapped back to the big picture (the full bot experience).',
+        ],
+        outro: 'This allowed focused design, easier testing, and faster iteration.',
+        imageType: 'modular-thinking',
+      },
+      {
+        title: '🎯 Principles',
+        intro: 'Four core principles guided every design decision:',
+        assessPoints: [
+          '🔍 Clarity : Even first-time users should understand how to start',
+          '🔧 Flexibility : Should support both simple FAQ bots and complex flows',
+          '📢 Feedback : Immediate preview or validation of each step',
+          '📚 Progressive Disclosure — Start simple, reveal complexity only when needed',
+        ],
+      },
+      {
+        title: '🧠 Breaking the Problem Down',
+        intro: 'Three critical questions framed our approach:',
+        assessPoints: [
+          '✅ How do we represent logic and flow visually?',
+          '✅ How do we simplify branching without oversimplifying?',
+          '✅ How can we make conversation nodes feel "natural" to create and connect?',
+        ],
+      },
     ],
     iterationIntro: 'Sketches → Wireframes → Prototype. Sketching Fast, Validating Early. I began with quick sketches for each core function — like adding message blocks, connecting steps, defining conditions — and shared them in informal reviews with SMEs. This allowed us to test conceptual clarity early without investing in high-fidelity mockups.',
     iterationDetails: [

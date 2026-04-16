@@ -8,6 +8,7 @@ import personaTwoImage from "../persona 2.webp";
 import finalFeaturesImage from "../assets/final features.webp";
 import painpointsImage from "../assets/painpoints.webp";
 import competitorAnalysisImage from "../assets/competitor analysis.webp";
+import modularThinkingImage from "../modular thinking.webp";
 import caseResearch from "../assets/samples/case-research.svg";
 import caseWireframe from "../assets/samples/case-wireframe.svg";
 import workDashboard from "../assets/samples/work-dashboard.svg";
@@ -116,6 +117,7 @@ function BcfCaseStudy({ onContactClick, study }) {
     "final-features": finalFeaturesImage,
     "persona-1": personaOneImage,
     "persona-2": personaTwoImage,
+    "modular-thinking": modularThinkingImage,
   };
 
   return (
@@ -276,20 +278,58 @@ function BcfCaseStudy({ onContactClick, study }) {
             <SectionHeader eyebrow="05 Strategy" title="Design Strategy" />
           </div>
           <div>
-            <p className="cs-lead">{study.strategyIntro}</p>
-            {study.strategyPoints && (
-              <ul className="cs-list">
-                {study.strategyPoints.map((point) => (
-                  <li key={point}>{point}</li>
+            <p className="cs-lead">{study.designStrategyIntro || study.strategyIntro}</p>
+            {study.designStrategyCards ? (
+              <div className="cs-card-grid cs-discovery-grid">
+                {study.designStrategyCards.map((card) => (
+                  <article className="cs-point-card" key={card.title}>
+                    <h3>{card.title}</h3>
+                    {card.intro ? (
+                      <div className="cs-copy">
+                        <p>{card.intro}</p>
+                        {card.imageType && discoveryCardImages[card.imageType] && (
+                          <div className="cs-analysis-placeholder">
+                            <img
+                              className="cs-analysis-placeholder-image"
+                              src={discoveryCardImages[card.imageType]}
+                              alt={card.imageAlt || card.title}
+                              loading="lazy"
+                            />
+                          </div>
+                        )}
+                        {card.assessLabel && <p className="cs-analysis-label">{card.assessLabel}</p>}
+                        {card.assessPoints && (
+                          <ul className="cs-analysis-list">
+                            {card.assessPoints.map((point) => (
+                              <li key={point}>{point}</li>
+                            ))}
+                          </ul>
+                        )}
+                        {card.outro && <p>{card.outro}</p>}
+                      </div>
+                    ) : (
+                      <p>{card.body}</p>
+                    )}
+                  </article>
                 ))}
-              </ul>
+              </div>
+            ) : (
+              <>
+                {study.strategyPoints && (
+                  <ul className="cs-list">
+                    {study.strategyPoints.map((point) => (
+                      <li key={point}>{point}</li>
+                    ))}
+                  </ul>
+                )}
+                <h3>Principles</h3>
+                <ul className="cs-list">
+                  {study.principles.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </>
             )}
-            <h3>Principles</h3>
-            <ul className="cs-list">
-              {study.principles.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
           </div>
         </section>
 
