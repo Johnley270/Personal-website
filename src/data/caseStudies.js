@@ -167,8 +167,20 @@ export const caseStudies = {
         ],
       },
     ],
-    prototype:
-      'To simulate a real-world use case, I created an end-to-end prototype of a movie ticket booking bot. This example combined key features: Intent setup (e.g., "Book a ticket", "Check ticket status"). Conditional logic. Input handling. Dynamic API calls. Carousel components for ticket options. This working prototype was presented to stakeholders, triggering valuable feedback around: Visibility of logic paths. Ease of tracing a user journey. Clarity of node functions.',
+    prototypeIntro: 'To simulate a real-world use case, I created an end-to-end prototype of a movie ticket booking bot.',
+    prototypeFeatures: [
+      '✅ Intent setup (e.g., "Book a ticket", "Check ticket status")',
+      '✅ Conditional logic',
+      '✅ Input handling',
+      '✅ Dynamic API calls',
+      '✅ Carousel components for ticket options',
+    ],
+    prototypeOutro: 'This working prototype was presented to stakeholders, triggering valuable feedback around:',
+    prototypeFeedbackPoints: [
+      '✅ Visibility of logic paths',
+      '✅ Ease of tracing a user journey',
+      '✅ Clarity of node functions',
+    ],
     prototypeLink:
       'https://www.figma.com/design/kxAmPLUAhrvs9ac9SbjtFB/BCF_for-embed?node-id=1-1188&t=1avwYKjAHm2XKs09-1',
     feedbackIntro: 'To validate core usability and flow clarity, I conducted guided user testing sessions with internal team members across support, marketing, and operations. Rather than a full-blown, high-fidelity prototype, I used a click-based directional prototype that walked users through one pre-defined path of the bot-building process.',

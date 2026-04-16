@@ -381,7 +381,24 @@ function BcfCaseStudy({ onContactClick, study }) {
               </>
             )}
             <h3>Prototype With Realistic Scenarios</h3>
-            <p className="cs-copy-single">{study.prototype}</p>
+            <div className="cs-copy">
+              <p>{study.prototypeIntro}</p>
+              {study.prototypeFeatures && (
+                <ul className="cs-analysis-list">
+                  {study.prototypeFeatures.map((feature) => (
+                    <li key={feature}>{feature}</li>
+                  ))}
+                </ul>
+              )}
+              <p>{study.prototypeOutro}</p>
+              {study.prototypeFeedbackPoints && (
+                <ul className="cs-analysis-list">
+                  {study.prototypeFeedbackPoints.map((point) => (
+                    <li key={point}>{point}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
             <a
               className="cs-text-link"
               href={study.prototypeLink}
