@@ -5,6 +5,7 @@ import Hero from "./components/Hero";
 import Work from "./components/Work";
 import Footer from "./components/Footer";
 import ContactModal from "./components/ContactModal";
+import BackToTopFab from "./components/BackToTopFab";
 import CaseStudy from "./pages/CaseStudy";
 import "./App.css";
 
@@ -37,6 +38,7 @@ function App() {
         />
       </Routes>
       <ContactModal isOpen={contactOpen} onClose={closeContact} />
+      <BackToTopFab />
     </div>
   );
 }

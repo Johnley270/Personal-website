@@ -3,6 +3,11 @@ import Footer from "../components/Footer";
 import { Link, useParams } from "react-router-dom";
 import { caseStudies } from "../data/caseStudies";
 import { projects } from "../data/projects";
+import personaOneImage from "../persona 1.webp";
+import personaTwoImage from "../persona 2.webp";
+import finalFeaturesImage from "../assets/final features.webp";
+import painpointsImage from "../assets/painpoints.webp";
+import competitorAnalysisImage from "../assets/competitor analysis.webp";
 import caseResearch from "../assets/samples/case-research.svg";
 import caseWireframe from "../assets/samples/case-wireframe.svg";
 import workDashboard from "../assets/samples/work-dashboard.svg";
@@ -105,6 +110,13 @@ function ProjectMetadata({ role, toolsUsed, details }) {
 
 function BcfCaseStudy({ onContactClick, study }) {
   const images = [caseResearch, caseWireframe, workDashboard];
+  const discoveryCardImages = {
+    "competitor-analysis": competitorAnalysisImage,
+    painpoints: painpointsImage,
+    "final-features": finalFeaturesImage,
+    "persona-1": personaOneImage,
+    "persona-2": personaTwoImage,
+  };
 
   return (
     <>
@@ -124,21 +136,12 @@ function BcfCaseStudy({ onContactClick, study }) {
           </div>
         </section>
 
-        <section className="cs-shell cs-project-details">
-          <SectionHeader eyebrow="01 Snapshot" title="Project Details" />
-          <ProjectMetadata role={study.role} toolsUsed={study.toolsUsed} details={study.details} />
-        </section>
-
-        <section className="cs-shell cs-single-column">
-          <SectionHeader
-            eyebrow="02 Overview"
-            title="Designing a No-Code Interface for Fast & Flexible Bot Building"
-          />
-          <p className="cs-quote">"{study.directive}"</p>
-          <div className="cs-copy">
-            {study.overview.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
+        <section className="cs-shell cs-two-column cs-project-details">
+          <div>
+            <SectionHeader eyebrow="01 Snapshot" title="Project Details" />
+          </div>
+          <div>
+            <ProjectMetadata role={study.role} toolsUsed={study.toolsUsed} details={study.details} />
           </div>
         </section>
 
@@ -147,11 +150,30 @@ function BcfCaseStudy({ onContactClick, study }) {
             <SectionHeader eyebrow="03 Problem" title="Problem Definition" />
           </div>
           <div className="cs-copy">
-            {study.problemIntro && <p>{study.problemIntro}</p>}
-            <p>{study.exploringEcosystem}</p>
-            {study.problem.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
+            <h3>Designing a No-Code Interface for Fast & Flexible Bot Building</h3>
+            {study.overview.map((paragraph) => (
+              <p key={paragraph} dangerouslySetInnerHTML={{ __html: paragraph }} />
             ))}
+            <h3>This gave rise to a dual goal:</h3>
+            {study.dualGoals && study.dualGoals.map((goal) => (
+              <p key={goal} dangerouslySetInnerHTML={{ __html: goal }} />
+            ))}
+            <h3 style={{ marginTop: '24px' }}>The leadership came to us with a clear directive:</h3>
+            <p className="cs-quote">"{study.directive}"</p>
+            {study.problemIntro && <p style={{ marginTop: '24px' }}>{study.problemIntro}</p>}
+            {study.problemStatement && <p>{study.problemStatement}</p>}
+            {study.exploringEcosystemIntro && <p style={{ marginTop: '24px' }}>{study.exploringEcosystemIntro}</p>}
+            {study.exploringEcosystem && <p>{study.exploringEcosystem}</p>}
+            {study.understandingEcosystem && (
+              <div style={{ marginTop: '24px' }}>
+                {study.understandingEcosystem.map((section, idx) => (
+                  <div key={idx} style={{ marginBottom: idx === 0 ? '20px' : '0' }}>
+                    {section.subtitle && <h3>{section.subtitle}</h3>}
+                    <p dangerouslySetInnerHTML={{ __html: section.body }} />
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </section>
 
@@ -162,17 +184,88 @@ function BcfCaseStudy({ onContactClick, study }) {
             </div>
             <div>
               <p className="cs-lead">{study.discoveryIntro}</p>
-              <div className="cs-card-grid">
+              {study.discoveryQuestions && (
+                <ul className="cs-list" style={{ marginTop: '20px' }}>
+                  {study.discoveryQuestions.map((question) => (
+                    <li key={question}>{question}</li>
+                  ))}
+                </ul>
+              )}
+              {study.discoveryAfterQuestions && (
+                <div className="cs-copy" style={{ marginTop: '20px' }}>
+                  {study.discoveryAfterQuestions.map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
+                </div>
+              )}
+              <div className="cs-card-grid cs-discovery-grid">
                 {study.discoveryCards.map((card) => (
                   <article className="cs-point-card" key={card.title}>
                     <h3>{card.title}</h3>
-                    <p>{card.body}</p>
+                    {card.intro ? (
+                      <div className="cs-copy">
+                        <p>{card.intro}</p>
+                        {(card.imageType || card.imagePlaceholder) && (
+                          <div className="cs-analysis-placeholder">
+                            {card.imageType && discoveryCardImages[card.imageType] ? (
+                              <img
+                                className="cs-analysis-placeholder-image"
+                                src={discoveryCardImages[card.imageType]}
+                                alt={card.imageAlt || "Analysis"}
+                                loading="lazy"
+                              />
+                            ) : (
+                              card.imagePlaceholder
+                            )}
+                          </div>
+                        )}
+                        {card.imageCaption && <p className="cs-analysis-caption">{card.imageCaption}</p>}
+                        {card.assessLabel && <p className="cs-analysis-label">{card.assessLabel}</p>}
+                        {card.assessPoints && (
+                          <ul className="cs-analysis-list">
+                            {card.assessPoints.map((point) => (
+                              <li key={point}>{point}</li>
+                            ))}
+                          </ul>
+                        )}
+                        {card.outro && <p>{card.outro}</p>}
+                        {card.postOutro && <p>{card.postOutro}</p>}
+                        {card.postAssessLabel && <p className="cs-analysis-label cs-analysis-label-strong">{card.postAssessLabel}</p>}
+                        {card.postAssessPoints && (
+                          <ul className="cs-analysis-list">
+                            {card.postAssessPoints.map((point) => (
+                              <li key={point}>{point}</li>
+                            ))}
+                          </ul>
+                        )}
+                        {card.postAssessImageTypes && card.postAssessImageTypes.map((imageType) => (
+                          discoveryCardImages[imageType] ? (
+                            <div className="cs-analysis-placeholder" key={imageType}>
+                              <img
+                                className="cs-analysis-placeholder-image"
+                                src={discoveryCardImages[imageType]}
+                                alt={card.postAssessImageAlt || "Supporting analysis"}
+                                loading="lazy"
+                              />
+                            </div>
+                          ) : null
+                        ))}
+                        {card.postAssessImageType && discoveryCardImages[card.postAssessImageType] && (
+                          <div className="cs-analysis-placeholder">
+                            <img
+                              className="cs-analysis-placeholder-image"
+                              src={discoveryCardImages[card.postAssessImageType]}
+                              alt={card.postAssessImageAlt || "Supporting analysis"}
+                              loading="lazy"
+                            />
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <p>{card.body}</p>
+                    )}
                   </article>
                 ))}
-              </div>
-              <div className="cs-image-pair">
-                <ImageFrame src={caseResearch} alt="" />
-                <ImageFrame src={caseWireframe} alt="" />
               </div>
             </div>
           </div>

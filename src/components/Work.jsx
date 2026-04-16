@@ -1,6 +1,5 @@
 import { motion as Motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import workSystem from "../assets/samples/work-system.svg";
 import bcfInfographic from "../assets/samples/bcf-infographic.svg";
 import rubeeInfographic from "../assets/samples/rubee-infographic.svg";
 import "./Work.css";
@@ -19,19 +18,6 @@ const projectCards = [
     cta: "Open case study",
     image: bcfInfographic,
     interactiveMedia: true,
-  },
-  {
-    title:
-      "Designing Enterprise SaaS Experiences: The UX Behind a Scalable Bot Building Framework",
-    tags: [
-      "Enterprise Saas",
-      "No Code Workflow",
-      "System design",
-      "Conversational / Agentic AI",
-    ],
-    href: "/work/flowkit-design-system",
-    cta: "Open case study",
-    image: workSystem,
   },
   {
     title: "Rubee App: Designing a Simpler Personal Finance Experience",

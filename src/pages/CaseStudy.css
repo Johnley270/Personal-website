@@ -1,7 +1,7 @@
 .case-study-page {
   min-height: 100vh;
   background: #ffffff;
-  color: #282828;
+  color: #1a1a1a;
 }
 
 .cs-shell {
@@ -39,7 +39,7 @@
   align-items: center;
   gap: 10px;
   width: fit-content;
-  color: #282828;
+  color: #1a1a1a;
   border-bottom: 1px solid rgba(40, 40, 40, 0.24);
   font-size: 17px;
   font-weight: 500;
@@ -68,7 +68,7 @@
 
 .cs-back:focus-visible,
 .cs-text-link:focus-visible {
-  outline: 2px solid #282828;
+  outline: 2px solid #1a1a1a;
   outline-offset: 3px;
 }
 
@@ -130,7 +130,7 @@
 .cs-project-details h2,
 .cs-section-head h2 {
   margin: 0;
-  color: #282828;
+  color: #1a1a1a;
   font-size: clamp(30px, 3.6vw, 48px);
   font-weight: 700;
   line-height: 1.2;
@@ -165,7 +165,7 @@
 
 .cs-details-grid dd {
   margin: 0;
-  color: #282828;
+  color: #1a1a1a;
   font-size: 18px;
   font-weight: 600;
   line-height: 1.45;
@@ -214,7 +214,7 @@
 
 .cs-metadata-row dd {
   margin: 0;
-  color: #282828;
+  color: #1a1a1a;
   font-size: 16px;
   font-weight: 500;
   line-height: 1.6;
@@ -229,7 +229,7 @@
 }
 
 .cs-tools-list li {
-  color: #282828;
+  color: #1a1a1a;
   font-size: 16px;
   font-weight: 500;
   line-height: 1.6;
@@ -238,22 +238,29 @@
 }
 
 .cs-tools-list strong {
-  color: #282828;
+  color: #1a1a1a;
   font-weight: 700;
 }
 
 .cs-two-column {
   display: grid;
-  grid-template-columns: minmax(220px, 0.72fr) minmax(0, 1.28fr);
+  grid-template-columns: minmax(140px, 0.5fr) minmax(0, 1.5fr);
   gap: 56px;
   align-items: start;
   padding: 104px 0;
 }
 
 .cs-two-column > :first-child {
+  position: -webkit-sticky;
   position: sticky;
   top: 108px;
   align-self: start;
+  height: fit-content;
+  z-index: 2;
+}
+
+.cs-two-column .cs-section-head {
+  position: static;
 }
 
 .cs-two-column > .cs-image-triplet {
@@ -350,7 +357,7 @@
 .cs-feature-row h2,
 .cs-point-card h3 {
   margin: 0 0 16px;
-  color: #282828;
+  color: #1a1a1a;
   font-size: 24px;
   font-weight: 700;
   line-height: 1.35;
@@ -377,8 +384,9 @@
   position: relative;
   padding-left: 22px;
   color: #6a6a6a;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 500;
+  font-style: italic;
   line-height: 1.65;
 }
 
@@ -415,12 +423,70 @@
   grid-template-columns: repeat(4, 1fr);
 }
 
+.cs-discovery-grid {
+  grid-template-columns: 1fr;
+}
+
 .cs-point-card {
   padding: 28px;
 }
 
 .cs-point-card p {
   font-size: 17px;
+}
+
+.cs-analysis-placeholder {
+  margin-top: 8px;
+  min-height: 180px;
+  border: 1px dashed #afafaf;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  color: #6a6a6a;
+  font-size: 16px;
+  font-weight: 500;
+  background: #f9f9f9;
+}
+
+.cs-analysis-placeholder-image {
+  width: 100%;
+  height: 100%;
+  min-height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.cs-analysis-caption {
+  margin-top: 8px;
+  color: #6a6a6a;
+  font-size: 14px;
+  text-transform: lowercase;
+}
+
+.cs-analysis-label {
+  margin-top: 12px;
+  color: #1a1a1a;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.cs-analysis-label-strong {
+  color: #0d0d0d;
+  font-weight: 800;
+}
+
+.cs-analysis-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.cs-analysis-list li {
+  color: #6a6a6a;
+  font-size: 17px;
+  line-height: 1.6;
 }
 
 .cs-research-links,
@@ -441,7 +507,7 @@
   border: 1px solid #afafaf;
   border-radius: 8px;
   background: #ffffff;
-  color: #282828;
+  color: #1a1a1a;
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
@@ -457,7 +523,7 @@
 .cs-quotes-grid blockquote {
   margin: 0;
   padding: 24px;
-  color: #282828;
+  color: #1a1a1a;
   font-size: 17px;
   font-weight: 500;
   line-height: 1.6;
@@ -526,7 +592,7 @@
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .cs-shell {
     width: min(100% - 40px, 1220px);
   }
@@ -544,6 +610,8 @@
 
   .cs-two-column > :first-child {
     position: static;
+    top: auto;
+    height: auto;
   }
 
   .cs-two-column .cs-section-head,

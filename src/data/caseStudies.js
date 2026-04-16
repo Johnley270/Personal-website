@@ -16,32 +16,93 @@ export const caseStudies = {
       'We need a Bot Creation Framework (BCF) that enables anyone — regardless of technical background — to design, build, and deploy bots independently.',
     overview: [
       'As conversational bots became a core part of client engagement, our company faced a recurring bottleneck: building bots for each client required significant developer effort. Every implementation involved repetitive logic setup, back-and-forth collaboration, and custom code — a process that simply didn\'t scale as demand grew.',
-      'What if we could productize our bot-building expertise into a standalone platform that even business owners could use themselves?',
+      '<strong style="color: #0d0d0d;">What if we could productize our bot-building expertise into a standalone platform that even business owners could use themselves?</strong>',
     ],
-    problemIntro: 'This wasn\'t just a design challenge. It was a scalability and democratization challenge: How do we take something as logic-heavy and branching as conversational flows — and turn it into something visual, intuitive, and modular, without losing power?',
-    problem: [
-      'Internally (Primary): Empower non-technical employees to build bots without engineering support.',
-      'Externally (Secondary): Create a self-serve bot creation tool for small business owners, unlocking a new product line and revenue stream.',
-      'We weren\'t trying to build another chatbot tool for developers. We were trying to create a product that could let anyone — even someone unfamiliar with logic trees or APIs — structure a complete conversation flow on their own.',
+    dualGoals: [
+      '<strong>Internally (Primary):</strong> Empower non-technical employees to build bots without engineering support.',
+      '<strong>Externally (Secondary):</strong> Create a self-serve bot creation tool for small business owners, unlocking a new product line and revenue stream.',
     ],
-    exploringEcosystem: 'With the initial requirement defined, I immersed myself in the world of conversational tools. I explored user forums, product demos, tutorials, and case studies to uncover how target users — like e-commerce owners, support teams, and marketers — approached bot building. These were people who knew what they wanted their bots to say, but not necessarily how to make that happen without engineering help.',
-    discoveryIntro: 'My goal was to understand not just who our users were, but how they thought. What mental models they brought to designing conversations. Where they struggled. What "intuitive" meant to them in practice. This foundational research helped frame design decisions around real expectations, not just assumptions.',
+    problemIntro: 'This wasn\'t just a design challenge. It was a scalability and democratization challenge:',
+    problemStatement: 'How do we take something as logic-heavy and branching as conversational flows — and turn it into something visual, intuitive, and modular, without losing power?',
+    exploringEcosystemIntro: 'With the initial requirement defined, I immersed myself in the world of conversational tools.',
+    exploringEcosystem: 'I explored user forums, product demos, tutorials, and case studies to uncover how target users — like e-commerce owners, support teams, and marketers — approached bot building.',
+    understandingEcosystem: [
+      { subtitle: 'Understanding the Ecosystem', body: '<strong style="color: #0d0d0d;">We weren\'t trying to build another chatbot tool for developers. We were trying to create a product that could let anyone — even someone unfamiliar with logic trees or APIs — structure a complete conversation flow on their own.</strong>' },
+      { body: 'These were people who knew what they wanted their bots to say, but not necessarily how to make that happen without engineering help.' },
+    ],
+    discoveryIntro: 'My goal was to understand not just who our users were, but how they thought. This foundational research helped frame design decisions around real expectations, not just assumptions.',
+    discoveryQuestions: [
+      'What mental models did they bring to designing conversations?',
+      'Where did they struggle?',
+      'What did "intuitive" mean to them in practice?',
+    ],
+    discoveryAfterQuestions: [
+      'This foundational research helped frame design decisions around real expectations, not just assumptions.',
+      'I started by looking outward',
+    ],
     discoveryCards: [
       {
         title: 'Competitor Analysis',
-        body: 'Analyzed tools like Dialogflow, Botpress, voiceflow. Each platform offered valuable insights into what works — and what doesn\'t: Complexity of setup. Flexibility in designing flows. Support for integrations & APIs. Target user personas.',
+        intro:
+          'Analyzed tools like Dialogflow, Botpress, voiceflow.Each platform offered valuable insights into what works — and what doesn\'t:',
+        imagePlaceholder: '[[place for image]]',
+        imageType: 'competitor-analysis',
+        imageCaption: 'competitive analysis',
+        
+        assessLabel: 'I assessed:',
+        assessPoints: [
+          '🔗 Complexity of setup',
+          '🧩 Flexibility in designing flows',
+          '📦 Support for integrations & APIs',
+          '🧑‍💻 Target user personas',
+        ],
+        postAssessImageType: 'painpoints',
       },
       {
         title: 'Stakeholder & SME Workshops',
-        body: 'Collaborated with Product Owners and SMEs to: Define a successful MVP with core features to support 80% of use cases. Map out technical feasibility within the company\'s infrastructure. Break down long-term vision into immediate phases. This scoping phase helped bring clarity on what must be built now vs. later, and what would provide immediate value to our users.',
+        intro: 'Collaborated with Product Owners and SMEs to:',
+        assessPoints: [
+          'Defined a successful MVP with core features to support 80% of use cases',
+          'Map out technical feasibility within the company\'s infrastructure.',
+          'Break down long-term vision into immediate phases.',
+        ],
+        outro:
+          'This scoping phase helped bring clarity on what must be built now vs. later, and what would provide immediate value to our users.',
+        postAssessLabel: 'Finalised features to be built now',
+        postAssessImageType: 'final-features',
+        postAssessImageAlt: 'Finalised features to be built now',
       },
       {
         title: 'Conducted Interviews',
-        body: 'Internal teams using bots for automation. Potential external users (where available). SMEs with deep domain knowledge in conversational design. These conversations happened regularly throughout the project. It wasn\'t just a one-time research sprint — it was an ongoing loop of validation, refinement, and alignment.',
+        intro: 'Conducted interviews with target users and Internal teams.',
+        assessPoints: [
+          '➡️ Internal teams using bots for automation',
+          '➡️ Potential external users (where available)',
+          '➡️ SMEs with deep domain knowledge in conversational design',
+        ],
+        outro:
+          'These conversations happened regularly throughout the project. It wasn\'t just a one-time research sprint — it was an ongoing loop of validation, refinement, and alignment. I made it a point to bring users into the process early, helping us build something they could genuinely use without friction.',
+        postAssessLabel: 'These conversations helped me understand:',
+        postAssessPoints: [
+          '➡️ Their current frustrations',
+          '➡️ How they think when designing conversations',
+          '➡️ Their fears around “breaking” something technical',
+          '➡️ The mental workflow they follow when helping a client',
+        ],
       },
       {
         title: 'Emergent Personas',
-        body: 'Amit, a support executive who wants to reuse bot logic, and spin up new bots quickly for new clients. Rajesh, solo e-commerce store owner who needs automation but can\'t code. These personas weren\'t just theoretical — they were anchored in actual workflows happening within the company. These personas grounded the design in reality and helped stress-test whether each decision would scale across real-world scenarios.',
+        intro: 'These insights helped me shape provisional personas — such as',
+        assessPoints: [
+          '“Amit, a support executive who wants to reuse bot logic, and spin up new bots quickly for new clients.”',
+          'Rajesh, solo e-commerce store owner who needs automation but can\'t code.',
+        ],
+        outro:
+          'These personas weren\'t just theoretical — they were anchored in actual workflows happening within the company.',
+        postOutro:
+          'These personas grounded the design in reality and helped stress-test whether each decision would scale across real-world scenarios.',
+        postAssessImageTypes: ['persona-1', 'persona-2'],
+        postAssessImageAlt: 'Emergent personas',
       },
     ],
     strategyIntro: 'With clarity on the real-world pain points, I began breaking down the complexity of conversational logic into digestible building blocks.',
