@@ -1020,7 +1020,7 @@ function CaseStudy({ onContactClick, onResumeClick, caseSlug }) {
       <Navbar onContactClick={onContactClick} onResumeClick={onResumeClick} />
       <main className="case-study-page cs-empty-state">
         <div className="cs-shell">
-          <Link className="cs-back" to="/#work">
+          <Link className="cs-back" to="/" state={{ scrollTo: "work" }}>
             Back to work
           </Link>
           <h1>{project?.title || "Case Study"}</h1>

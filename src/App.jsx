@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Work from "./components/Work";
@@ -9,6 +9,11 @@ import ResumeModal from "./components/ResumeModal";
 import BackToTopFab from "./components/BackToTopFab";
 import CaseStudy from "./pages/CaseStudy";
 import "./App.css";
+
+function LegacyWorkRedirect() {
+  const { slug } = useParams();
+  return <Navigate to={`/${slug}`} replace />;
+}
 
 function App() {
   const [contactOpen, setContactOpen] = useState(false);
@@ -21,6 +26,11 @@ function App() {
   const closeResume = () => setResumeOpen(false);
 
   useEffect(() => {
+    if (location.pathname === "/" && location.hash) {
+      navigate({ pathname: "/", search: location.search }, { replace: true, state: location.state });
+      return;
+    }
+
     if (location.pathname !== "/") {
       return;
     }
@@ -58,16 +68,14 @@ function App() {
         />
         <Route
           path="/bcf"
-          element={
-            <CaseStudy
-              onContactClick={openContact}
-              onResumeClick={openResume}
-              caseSlug="nebula-analytics"
-            />
-          }
+          element={<Navigate to="/nebula-analytics" replace />}
         />
         <Route
           path="/work/:slug"
+          element={<LegacyWorkRedirect />}
+        />
+        <Route
+          path="/:slug"
           element={<CaseStudy onContactClick={openContact} onResumeClick={openResume} />}
         />
       </Routes>

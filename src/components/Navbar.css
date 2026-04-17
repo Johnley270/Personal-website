@@ -25,6 +25,8 @@
 .navbar-logo {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
+  position: relative;
   height: 44px;
   font-family: "BioRhyme", var(--sans);
   font-size: 28px;
@@ -36,6 +38,12 @@
   text-decoration: none;
   white-space: nowrap;
   transition: color 0.2s ease;
+}
+
+.navbar-logo-text {
+  display: inline-block;
+  color: #6a6a6a;
+  transition: opacity 0.25s ease;
 }
 
 .navbar-ribbon {
@@ -117,14 +125,186 @@
   }
 }
 
-.navbar-logo:hover {
-  color: #505050;
+.navbar-logo::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: 1;
+  letter-spacing: 0;
+  white-space: nowrap;
+  z-index: 2;
+  color: transparent;
+  opacity: 0;
+  pointer-events: none;
+  background-color: #010208;
+  background-image:
+    radial-gradient(circle at 8% 14%, rgba(255, 255, 255, 1) 0 0.95px, transparent 1.65px),
+    radial-gradient(circle at 16% 68%, rgba(244, 250, 255, 0.98) 0 0.85px, transparent 1.55px),
+    radial-gradient(circle at 24% 32%, rgba(232, 242, 255, 0.97) 0 0.9px, transparent 1.6px),
+    radial-gradient(circle at 34% 82%, rgba(250, 253, 255, 0.98) 0 0.8px, transparent 1.5px),
+    radial-gradient(circle at 43% 22%, rgba(255, 255, 255, 1) 0 0.9px, transparent 1.6px),
+    radial-gradient(circle at 52% 58%, rgba(238, 246, 255, 0.97) 0 0.85px, transparent 1.55px),
+    radial-gradient(circle at 63% 78%, rgba(255, 255, 255, 0.99) 0 0.95px, transparent 1.65px),
+    radial-gradient(circle at 72% 18%, rgba(241, 248, 255, 0.98) 0 0.8px, transparent 1.5px),
+    radial-gradient(circle at 84% 44%, rgba(255, 255, 255, 1) 0 0.9px, transparent 1.6px),
+    radial-gradient(circle at 92% 74%, rgba(235, 244, 255, 0.97) 0 0.85px, transparent 1.55px),
+    linear-gradient(120deg, #050913 0%, #010208 45%, #0b1120 100%);
+  background-size:
+    210% 210%,
+    230% 230%,
+    220% 220%,
+    240% 240%,
+    225% 225%,
+    235% 235%,
+    220% 220%,
+    245% 245%,
+    225% 225%,
+    235% 235%,
+    100% 100%;
+  background-position:
+    0% 0%,
+    100% 20%,
+    35% 76%,
+    92% 58%,
+    16% 92%,
+    66% 12%,
+    84% 82%,
+    28% 42%,
+    56% 66%,
+    8% 52%,
+    0 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.32));
+  animation: navbar-logo-star-drift 2.6s linear infinite;
+  animation-play-state: paused;
+  transition: opacity 0.28s ease;
+}
+
+.navbar-logo::before {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: 1;
+  letter-spacing: 0;
+  white-space: nowrap;
+  z-index: 3;
+  color: transparent;
+  opacity: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 1) 0 0.95px, transparent 1.55px),
+    radial-gradient(circle at 38% 56%, rgba(255, 255, 255, 0.98) 0 0.9px, transparent 1.5px),
+    radial-gradient(circle at 57% 24%, rgba(248, 252, 255, 1) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 76% 68%, rgba(255, 255, 255, 0.98) 0 0.95px, transparent 1.55px),
+    radial-gradient(circle at 90% 34%, rgba(255, 255, 255, 1) 0 0.9px, transparent 1.5px);
+  background-size: 200% 200%, 220% 220%, 210% 210%, 225% 225%, 205% 205%;
+  background-position: 0% 0%, 72% 40%, 28% 84%, 88% 16%, 18% 66%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.5));
+  animation: navbar-logo-twinkle 1.6s steps(2, end) infinite;
+  animation-play-state: paused;
+  transition: opacity 0.28s ease;
+}
+
+.navbar-logo:hover .navbar-logo-text,
+.navbar-logo:focus-visible .navbar-logo-text {
+  opacity: 0;
+}
+
+.navbar-logo:hover::after,
+.navbar-logo:focus-visible::after {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+.navbar-logo:hover::before,
+.navbar-logo:focus-visible::before {
+  opacity: 0.7;
+  animation-play-state: running;
+}
+
+@keyframes navbar-logo-star-drift {
+  0% {
+    background-position:
+      0% 0%,
+      100% 20%,
+      35% 76%,
+      92% 58%,
+      16% 92%,
+      66% 12%,
+      84% 82%,
+      28% 42%,
+      56% 66%,
+      8% 52%,
+      0 0;
+  }
+
+  100% {
+    background-position:
+      130% 38%,
+      -24% 64%,
+      170% -12%,
+      -30% 98%,
+      138% 28%,
+      -18% 88%,
+      146% 14%,
+      -26% 74%,
+      162% 46%,
+      -22% 34%,
+      0 0;
+  }
+}
+
+@keyframes navbar-logo-twinkle {
+  0% {
+    opacity: 0.25;
+    background-position: 0% 0%, 72% 40%, 28% 84%, 88% 16%, 18% 66%;
+  }
+
+  30% {
+    opacity: 0.72;
+    background-position: 35% 18%, 46% 66%, 60% 22%, 18% 88%, 82% 28%;
+  }
+
+  55% {
+    opacity: 0.34;
+    background-position: 74% 52%, 18% 84%, 88% 12%, 62% 44%, 36% 92%;
+  }
+
+  80% {
+    opacity: 0.78;
+    background-position: 28% 90%, 86% 26%, 14% 58%, 44% 12%, 92% 70%;
+  }
+
+  100% {
+    opacity: 0.25;
+    background-position: 0% 0%, 72% 40%, 28% 84%, 88% 16%, 18% 66%;
+  }
 }
 
 .navbar-menu {
   display: flex;
   align-items: center;
   gap: 16px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar-logo::before,
+  .navbar-logo::after {
+    animation: none;
+  }
 }
 
 .navbar-links {

@@ -36,7 +36,7 @@ function Navbar({ onContactClick, onResumeClick }) {
 
   const links = [
     { label: "Home", href: "/", active: true, onClick: handleHomeNavigation },
-    { label: "Work", href: "/#work", onClick: handleWorkNavigation },
+    { label: "Work", href: "/", onClick: handleWorkNavigation },
   ];
 
   return (
@@ -50,12 +50,13 @@ function Navbar({ onContactClick, onResumeClick }) {
         <Link
           to="/"
           className="navbar-logo"
+          data-text="PORTFOLIO"
           onClick={(event) => {
             event.preventDefault();
             handleHomeNavigation();
           }}
         >
-          PORTFOLIO
+          <span className="navbar-logo-text">PORTFOLIO</span>
         </Link>
 
         <div className="navbar-menu">
