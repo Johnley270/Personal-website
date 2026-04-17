@@ -6,26 +6,26 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
   border-radius: 999px;
-  border: 1px solid rgba(0, 95, 88, 0.24);
-  background: #eef6f4;
-  color: #005f58;
-  box-shadow: var(--shadow-md);
+  border: none;
+  background: linear-gradient(135deg, #005f58 0%, #003d38 100%);
+  color: #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 95, 88, 0.4);
   opacity: 0;
   transform: translateY(12px) scale(0.95);
   pointer-events: none;
   transition:
     opacity 0.25s ease,
     transform 0.25s ease,
-    box-shadow 0.25s ease,
-    border-color 0.25s ease;
+    box-shadow 0.25s ease;
+  cursor: pointer;
 }
 
 .back-to-top-fab svg {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   fill: currentColor;
 }
 
@@ -36,14 +36,13 @@
 }
 
 .back-to-top-fab:hover {
-  border-color: #005f58;
-  box-shadow:
-    var(--shadow-md),
-    0 0 28px color-mix(in srgb, #005f58 20%, transparent);
+  background: linear-gradient(135deg, #007a70 0%, #005248 100%);
+  box-shadow: 0 12px 32px rgba(0, 95, 88, 0.6);
+  transform: translateY(-4px) scale(1);
 }
 
 .back-to-top-fab:focus-visible {
-  outline: 3px solid rgba(0, 95, 88, 0.2);
+  outline: 3px solid rgba(0, 95, 88, 0.3);
   outline-offset: 2px;
 }
 
@@ -51,7 +50,7 @@
   .back-to-top-fab {
     right: 16px;
     bottom: 16px;
-    width: 44px;
-    height: 44px;
+    width: 52px;
+    height: 52px;
   }
 }

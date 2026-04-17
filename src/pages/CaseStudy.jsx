@@ -98,9 +98,7 @@ const rubeeSections = [
   { id: "rubee-consolidation", label: "Consolidation" },
   { id: "rubee-pain-points", label: "Pain Points" },
   { id: "rubee-ideation", label: "Ideation" },
-  { id: "rubee-wireframes", label: "Wireframes" },
-  { id: "rubee-user-flows", label: "User Flows" },
-  { id: "rubee-user-testing", label: "User Testing" },
+  { id: "rubee-wireframes", label: "Flows & Wireframes" },
   { id: "rubee-visual-design", label: "Visual Design" },
   { id: "rubee-learnings", label: "Learnings" },
 ];
