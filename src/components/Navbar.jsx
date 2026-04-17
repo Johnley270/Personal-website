@@ -15,6 +15,10 @@ function Navbar({ onContactClick, onResumeClick }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const handleLogoClick = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const links = [
     { label: "Home", href: "#", active: true },
     { label: "Work", href: "#work" },
@@ -28,7 +32,7 @@ function Navbar({ onContactClick, onResumeClick }) {
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
     >
       <div className="navbar-inner">
-        <Link to="/" className="navbar-logo">
+        <Link to="/" className="navbar-logo" onClick={handleLogoClick}>
           PORTFOLIO
         </Link>
 
