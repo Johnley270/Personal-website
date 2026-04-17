@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import { motion as Motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
 function Navbar({ onContactClick, onResumeClick }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
   const ENABLE_PROGRESS_RIBBON = true;
 
   useEffect(() => {
@@ -15,13 +17,26 @@ function Navbar({ onContactClick, onResumeClick }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const handleLogoClick = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  const handleHomeNavigation = () => {
+    if (location.pathname === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+    navigate("/", { state: { scrollTo: "top" } });
+  };
+
+  const handleWorkNavigation = () => {
+    if (location.pathname === "/") {
+      const workSection = document.getElementById("work");
+      workSection?.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+    navigate("/", { state: { scrollTo: "work" } });
   };
 
   const links = [
-    { label: "Home", href: "#", active: true },
-    { label: "Work", href: "#work" },
+    { label: "Home", href: "/", active: true, onClick: handleHomeNavigation },
+    { label: "Work", href: "/#work", onClick: handleWorkNavigation },
   ];
 
   return (
@@ -32,7 +47,14 @@ function Navbar({ onContactClick, onResumeClick }) {
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
     >
       <div className="navbar-inner">
-        <Link to="/" className="navbar-logo" onClick={handleLogoClick}>
+        <Link
+          to="/"
+          className="navbar-logo"
+          onClick={(event) => {
+            event.preventDefault();
+            handleHomeNavigation();
+          }}
+        >
           PORTFOLIO
         </Link>
 
@@ -43,6 +65,10 @@ function Navbar({ onContactClick, onResumeClick }) {
                 <a
                   href={link.href}
                   className={link.active ? "navbar-link-active" : undefined}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    link.onClick();
+                  }}
                 >
                   {link.label}
                 </a>
@@ -114,7 +140,11 @@ function Navbar({ onContactClick, onResumeClick }) {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.05 }}
-                onClick={() => setMenuOpen(false)}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setMenuOpen(false);
+                  link.onClick();
+                }}
               >
                 {link.label}
               </Motion.a>
