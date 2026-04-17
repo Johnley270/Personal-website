@@ -298,6 +298,10 @@
   padding: 104px 0;
 }
 
+.cs-two-column > * {
+  min-width: 0;
+}
+
 .cs-two-column > :first-child {
   position: -webkit-sticky;
   position: sticky;
@@ -531,11 +535,11 @@
 }
 
 .cs-card-grid {
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
 .cs-painpoint-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
 .cs-discovery-grid {
@@ -578,6 +582,8 @@
   border-left: 4px solid #005f58;
   border-radius: 8px;
   background: linear-gradient(135deg, #fcfefe 0%, #f3f9f8 100%);
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .cs-painpoint-image-wrap {
@@ -686,6 +692,7 @@
   min-height: 180px;
   object-fit: cover;
   border-radius: 8px;
+  max-width: 100%;
 }
 
 .cs-analysis-caption {
@@ -869,14 +876,27 @@
 }
 
 @media (max-width: 1180px) {
-  .cs-quotes-grid,
-  .cs-card-grid {
+  .cs-quotes-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
   .cs-flow-grid,
   .cs-visual-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 980px) {
+  .cs-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cs-painpoint-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cs-point-card {
+    padding: 24px;
   }
 }
 
@@ -944,6 +964,7 @@
   .cs-image-pair,
   .cs-image-triplet,
   .cs-card-grid,
+  .cs-painpoint-grid,
   .cs-flow-grid,
   .cs-visual-grid {
     grid-template-columns: 1fr;
@@ -993,6 +1014,11 @@
   .cs-point-card,
   .cs-quotes-grid blockquote {
     padding: 20px;
+  }
+
+  .cs-card-grid,
+  .cs-painpoint-grid {
+    gap: 16px;
   }
 
   .cs-painpoint-image-wrap {
