@@ -247,7 +247,7 @@ export const caseStudies = {
   'mint-finance': null,
   'rubee-app': {
     heroSubtitle: 'Effortlessly guiding users to a streamlined financial management experience',
-    timeline: 'Nov 2020 - Dec 2020',
+    timeline: 'Nov 2022 - Dec 2022',
     tools: 'Figma , Figjam ,Protopie',
     team: 'Me and only me',
     background:
@@ -274,7 +274,9 @@ export const caseStudies = {
       'A prevalent issue with many apps is the use of display ads, which often leads users to seek alternate options.',
     ],
     primaryResearch:
-      'I started off by sending out a survey to potential users and from there, handpicked a select few for in-depth interviews. These interviews served a dual purpose - not only did they provide a plethora of inspiration for the app, but they also gave me valuable insight into the habits, behaviours and pain-points of my target audience.',
+      'I started off by sending out a survey to potential users and from there, handpicked a select few for in-depth interviews.',
+    primaryResearchFollowup:
+      'These interviews served a dual purpose - not only did they provide a plethora of inspiration for the app, but they also gave me valuable insight into the habits, behaviours and pain-points of my target audience.',
     userQuotes: [
       'The interface is too complicated and confusing',
       'Typing and carefully entering the data is worse than writing on paper',

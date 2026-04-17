@@ -20,6 +20,23 @@ import vd1Image from "../assets/VD1.webp";
 import vd2Image from "../assets/VD2.webp";
 import vd3Image from "../assets/VD3.webp";
 import vd4Image from "../assets/VD4.webp";
+import rubeePersonaImage from "../assets/persona.jpg";
+import rubeeEmpathyMapImage from "../assets/empathy map.jpg";
+import rubeeCustomerJourneyImage from "../assets/customer journey.jpg";
+import rubeeHighPriceImage from "../assets/painpoints/high price.avif";
+import rubeeForgetExpenseDetailsImage from "../assets/painpoints/forgot expense details.avif";
+import rubeeHighLearningCurveImage from "../assets/painpoints/high learning curve.avif";
+import rubeeLackOfCommittmentImage from "../assets/painpoints/lack of committment.avif";
+import rubeeUserFeedbackImage from "../assets/user feedback.avif";
+import visualDesign1 from "../assets/Visual Designs/Home.png";
+import visualDesign2 from "../assets/Visual Designs/onboarding.png";
+import visualDesign3 from "../assets/Visual Designs/LOGIN.png";
+import visualDesign4 from "../assets/Visual Designs/budgets.png";
+import visualDesign5 from "../assets/Visual Designs/statistics.png";
+import visualDesign6 from "../assets/Visual Designs/statistics2.png";
+import visualDesign7 from "../assets/Visual Designs/blogs.png";
+import visualDesign8 from "../assets/Visual Designs/rewards.png";
+import visualDesign9 from "../assets/Visual Designs/solution.png";
 import caseResearch from "../assets/samples/case-research.svg";
 import caseWireframe from "../assets/samples/case-wireframe.svg";
 import workDashboard from "../assets/samples/work-dashboard.svg";
@@ -85,7 +102,6 @@ const rubeeSections = [
   { id: "rubee-user-flows", label: "User Flows" },
   { id: "rubee-user-testing", label: "User Testing" },
   { id: "rubee-visual-design", label: "Visual Design" },
-  { id: "rubee-final-design", label: "Final Design" },
   { id: "rubee-learnings", label: "Learnings" },
 ];
 
@@ -151,40 +167,32 @@ function SectionHeader({ eyebrow, title }) {
   );
 }
 
-function DetailGrid({ details }) {
-  return (
-    <dl className="cs-details-grid">
-      {details.map((detail) => (
-        <div key={detail.label}>
-          <dt>{detail.label}</dt>
-          <dd>{detail.value}</dd>
-        </div>
-      ))}
-    </dl>
-  );
-}
-
-function ProjectMetadata({ role, toolsUsed, details }) {
+function ProjectMetadata({ role, toolsUsed = [], details }) {
   return (
     <div className="cs-project-metadata">
       <div className="cs-metadata-box">
-        <div className="cs-metadata-row">
-          <dt>Role</dt>
-          <dd>{role}</dd>
-        </div>
+        {role ? (
+          <div className="cs-metadata-row">
+            <dt>Role</dt>
+            <dd>{role}</dd>
+          </div>
+        ) : null}
 
-        <div className="cs-metadata-row">
-          <dt>Tools Used</dt>
-          <dd>
-            <ul className="cs-tools-list">
-              {toolsUsed.map((tool) => (
-                <li key={tool.name}>
-                  <strong>{tool.name}</strong> — {tool.description}
-                </li>
-              ))}
-            </ul>
-          </dd>
-        </div>
+        {toolsUsed.length > 0 ? (
+          <div className="cs-metadata-row">
+            <dt>Tools Used</dt>
+            <dd>
+              <ul className="cs-tools-list">
+                {toolsUsed.map((tool) => (
+                  <li key={tool.name}>
+                    <strong>{tool.name}</strong>
+                    {tool.description ? ` — ${tool.description}` : null}
+                  </li>
+                ))}
+              </ul>
+            </dd>
+          </div>
+        ) : null}
 
         {details && details.map((detail) => (
           <div className="cs-metadata-row" key={detail.label}>
@@ -684,6 +692,19 @@ function RubeeCaseStudy({ onContactClick, onResumeClick, project, study }) {
     rubeeImages.visualF,
   ];
 
+  const rubeePainPointImages = {
+    "High Price": rubeeHighPriceImage,
+    "Forget Expense Details": rubeeForgetExpenseDetailsImage,
+    "High learning curve": rubeeHighLearningCurveImage,
+    "Lack Of committment": rubeeLackOfCommittmentImage,
+  };
+
+  const rubeeToolsUsed = (study.tools || "")
+    .split(",")
+    .map((tool) => tool.trim())
+    .filter(Boolean)
+    .map((tool) => ({ name: tool }));
+
   return (
     <>
       <Navbar onContactClick={onContactClick} onResumeClick={onResumeClick} />
@@ -708,10 +729,10 @@ function RubeeCaseStudy({ onContactClick, onResumeClick, project, study }) {
             <SectionHeader eyebrow="01 Snapshot" title="Project Details" />
           </div>
           <div>
-            <DetailGrid
+            <ProjectMetadata
+              toolsUsed={rubeeToolsUsed}
               details={[
                 { label: "Timeline", value: study.timeline },
-                { label: "Tools", value: study.tools },
                 { label: "Team", value: study.team },
               ]}
             />
@@ -737,11 +758,12 @@ function RubeeCaseStudy({ onContactClick, onResumeClick, project, study }) {
           </div>
           <div className="cs-copy">
             <h3>What problem does this app aim to solve?</h3>
-            {study.problem.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-            <div style={{ marginTop: "24px" }}>
-              <ImageFrame src={rubeeImages.overview} alt="Rubee problem overview" onClick={() => handleImageClick(rubeeImages.overview)} />
+            <div className="cs-problem-highlight-list">
+              {study.problem.map((paragraph) => (
+                <div className="cs-problem-highlight-item" key={paragraph}>
+                  <p>{paragraph}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -753,7 +775,7 @@ function RubeeCaseStudy({ onContactClick, onResumeClick, project, study }) {
             </div>
             <div>
               <p className="cs-lead">{study.researchIntro}</p>
-              <div className="cs-two-column cs-spaced">
+              <div className="cs-rubee-research-stack cs-spaced">
                 <div>
                   <h3>Research objectives</h3>
                   <ul className="cs-list">
@@ -764,7 +786,7 @@ function RubeeCaseStudy({ onContactClick, onResumeClick, project, study }) {
                 </div>
                 <div>
                   <h3>Competitive Audit</h3>
-                  <p className="cs-eyebrow">KEY FINDINGS</p>
+                  <p className="cs-key-findings-heading">Key Findings</p>
                   <ul className="cs-list">
                     {study.competitiveFindings.map((item) => (
                       <li key={item}>{item}</li>
@@ -786,6 +808,7 @@ function RubeeCaseStudy({ onContactClick, onResumeClick, project, study }) {
           </div>
           <div>
             <p className="cs-lead">{study.primaryResearch}</p>
+            {study.primaryResearchFollowup ? <p className="cs-lead">{study.primaryResearchFollowup}</p> : null}
             <div className="cs-research-links">
               <span>Survey format</span>
               <span>Interview format</span>
@@ -799,10 +822,6 @@ function RubeeCaseStudy({ onContactClick, onResumeClick, project, study }) {
                 </blockquote>
               ))}
             </div>
-            <div className="cs-image-pair">
-              <ImageFrame src={rubeeImages.researchA} alt="Primary research artifact 1" onClick={() => handleImageClick(rubeeImages.researchA)} />
-              <ImageFrame src={rubeeImages.researchB} alt="Primary research artifact 2" onClick={() => handleImageClick(rubeeImages.researchB)} />
-            </div>
           </div>
         </section>
 
@@ -814,13 +833,10 @@ function RubeeCaseStudy({ onContactClick, onResumeClick, project, study }) {
             {study.researchConsolidation.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
-            <div style={{ marginTop: "24px" }}>
-              <ImageFrame src={rubeeImages.persona} alt="Rubee persona" onClick={() => handleImageClick(rubeeImages.persona)} />
-            </div>
             <div className="cs-image-triplet">
-              <ImageFrame src={rubeeImages.consolidationA} alt="Consolidation board 1" onClick={() => handleImageClick(rubeeImages.consolidationA)} />
-              <ImageFrame src={rubeeImages.consolidationB} alt="Consolidation board 2" onClick={() => handleImageClick(rubeeImages.consolidationB)} />
-              <ImageFrame src={rubeeImages.consolidationC} alt="Consolidation board 3" onClick={() => handleImageClick(rubeeImages.consolidationC)} />
+              <ImageFrame src={rubeePersonaImage} alt="Rubee persona" onClick={() => handleImageClick(rubeePersonaImage)} />
+              <ImageFrame src={rubeeEmpathyMapImage} alt="Rubee empathy map" onClick={() => handleImageClick(rubeeEmpathyMapImage)} />
+              <ImageFrame src={rubeeCustomerJourneyImage} alt="Rubee customer journey" onClick={() => handleImageClick(rubeeCustomerJourneyImage)} />
             </div>
           </div>
         </section>
@@ -835,9 +851,19 @@ function RubeeCaseStudy({ onContactClick, onResumeClick, project, study }) {
                 I have narrowed down the data from my research to four main pain
                 points that I will be focusing on in the next steps.
               </p>
-              <div className="cs-card-grid">
+              <div className="cs-card-grid cs-painpoint-grid">
                 {study.painPoints.map((point) => (
                   <article key={point.title} className="cs-point-card">
+                    {rubeePainPointImages[point.title] ? (
+                      <div className="cs-painpoint-image-wrap">
+                        <img
+                          className="cs-painpoint-image"
+                          src={rubeePainPointImages[point.title]}
+                          alt={`${point.title} pain point`}
+                          loading="lazy"
+                        />
+                      </div>
+                    ) : null}
                     <h3>{point.title}</h3>
                     <p>{point.description}</p>
                   </article>
@@ -851,58 +877,41 @@ function RubeeCaseStudy({ onContactClick, onResumeClick, project, study }) {
           <div>
             <SectionHeader eyebrow="08 Ideation" title="Ideation" />
           </div>
-          <div>
+          <div className="cs-ideation-single">
             <p className="cs-lead">{study.ideationIntro}</p>
-            <div className="cs-two-column cs-spaced">
-              <div>
-                <h3>Ideate</h3>
-                <p className="cs-copy-single">{study.ideationDetails}</p>
-                <a
-                  className="cs-text-link"
-                  href="https://drive.google.com"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  HMW Questions
-                </a>
-              </div>
-              <div>
-                <h3>Major Solutions & Design Approach</h3>
-                <ul className="cs-list">
-                  {study.designApproach.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+            <p className="cs-copy-single">{study.ideationDetails}</p>
+            <a
+              className="cs-button-link"
+              href="https://drive.google.com"
+              target="_blank"
+              rel="noreferrer"
+            >
+              HMW Questions
+            </a>
+            <h3 style={{ marginTop: "32px" }}>Major Solutions & Design Approach</h3>
+            <ul className="cs-list">
+              {study.designApproach.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
           </div>
         </section>
 
         <section id="rubee-wireframes" className="cs-shell cs-two-column">
           <div>
-            <SectionHeader eyebrow="09 Visuals" title="Wireframes" />
+            <SectionHeader eyebrow="09 Visuals" title="Flows and Wireframes" />
           </div>
           <div>
             <p className="cs-lead">{study.wireframesIntro}</p>
             <a
-              className="cs-text-link"
+              className="cs-button-link"
               href="https://www.behance.net"
               target="_blank"
               rel="noreferrer"
             >
-              View Detailedprocess on Behance
+              View Detailed Process on Behance
             </a>
-            <div style={{ marginTop: "20px" }}>
-              <ImageFrame src={rubeeImages.wireframes} alt="Rubee wireframes" onClick={() => handleImageClick(rubeeImages.wireframes)} />
-            </div>
-          </div>
-        </section>
-
-        <section id="rubee-user-flows" className="cs-shell cs-two-column">
-          <div>
-            <SectionHeader eyebrow="10 Flows" title="User Flows" />
-          </div>
-          <div>
+            <h3 style={{ marginTop: "36px" }}>Flows</h3>
             <div className="cs-tab-row">
               <span>Information Architecture</span>
               <span>Task flow</span>
@@ -912,16 +921,15 @@ function RubeeCaseStudy({ onContactClick, onResumeClick, project, study }) {
                 <ImageFrame key={src} src={src} alt="Rubee user flow" onClick={() => handleImageClick(src)} />
               ))}
             </div>
-          </div>
-        </section>
-
-        <section id="rubee-user-testing" className="cs-wide-band">
-          <div className="cs-shell cs-two-column">
-            <div>
-              <SectionHeader eyebrow="11 Validation" title="User Testing" />
-            </div>
-            <div>
-              <p className="cs-lead">I asked a few users to give feedback of the app.</p>
+            <h3 style={{ marginTop: "40px" }}>User Testing</h3>
+            <p className="cs-lead">I asked a few users to give feedback of the app.</p>
+            <div className="cs-user-feedback-image-wrap">
+              <img
+                className="cs-user-feedback-image"
+                src={rubeeUserFeedbackImage}
+                alt="User feedback"
+                loading="lazy"
+              />
             </div>
           </div>
         </section>
@@ -929,53 +937,41 @@ function RubeeCaseStudy({ onContactClick, onResumeClick, project, study }) {
         <section id="rubee-visual-design" className="cs-wide-band">
           <div className="cs-shell cs-two-column">
             <div>
-              <SectionHeader eyebrow="12 Visuals" title="Visual Design" />
+              <SectionHeader eyebrow="10 Visuals" title="Visual Design" />
             </div>
             <div>
-              <p className="cs-lead">
-                Visual designs not optimised for viewing in screen size of this
-                resolution
-              </p>
-              <p className="cs-lead">Open in desktop for best experience or</p>
-              <a
-                className="cs-text-link"
-                href="https://www.behance.net"
-                target="_blank"
-                rel="noreferrer"
-              >
-                View in Behance
-              </a>
-              <div className="cs-visual-grid">
-                {rubeeVisualImages.map((src) => (
-                  <ImageFrame key={src} src={src} alt="Rubee visual design" onClick={() => handleImageClick(src)} />
+              <p className="cs-lead">After iterations I came up with these Designs.</p>
+              <div className="cs-visual-design-grid">
+                {[
+                  visualDesign1,
+                  visualDesign2,
+                  visualDesign3,
+                  visualDesign4,
+                  visualDesign5,
+                  visualDesign6,
+                  visualDesign7,
+                  visualDesign8,
+                  visualDesign9,
+                ].map((src) => (
+                  <div key={src} className="cs-visual-design-item">
+                    <img
+                      className="cs-visual-design-image"
+                      src={src}
+                      alt="Rubee visual design"
+                      onClick={() => handleImageClick(src)}
+                      loading="lazy"
+                      style={{ cursor: 'pointer' }}
+                    />
+                  </div>
                 ))}
               </div>
             </div>
           </div>
         </section>
 
-        <section id="rubee-final-design" className="cs-shell cs-two-column cs-feature-stack">
-          <div>
-            <SectionHeader eyebrow="13 Outcome" title="Final Design" />
-          </div>
-          <div>
-            {study.features.map((feature) => (
-              <article key={feature.title} className="cs-feature-row">
-                <h2>{feature.title}</h2>
-                <p>{feature.body}</p>
-              </article>
-            ))}
-            <div className="cs-image-pair">
-              <ImageFrame src={rubeeImages.graphA} alt="Rubee graph screen 1" onClick={() => handleImageClick(rubeeImages.graphA)} />
-              <ImageFrame src={rubeeImages.graphB} alt="Rubee graph screen 2" onClick={() => handleImageClick(rubeeImages.graphB)} />
-            </div>
-            <ImageFrame src={rubeeImages.final} alt="Rubee final design" onClick={() => handleImageClick(rubeeImages.final)} />
-          </div>
-        </section>
-
         <section id="rubee-learnings" className="cs-shell cs-two-column cs-bottom">
           <div>
-            <SectionHeader eyebrow="14 Learnings" title="Key Learnings" />
+            <SectionHeader eyebrow="11 Learnings" title="Key Learnings" />
           </div>
           <div>
             <div className="cs-card-grid">
