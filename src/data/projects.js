@@ -1,7 +1,7 @@
 export const projects = [
   {
     id: 1,
-    slug: "nebula-analytics",
+    slug: "bcf",
     title: "Bot Creation Framework",
     category: "Enterprise SaaS",
     description:

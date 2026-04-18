@@ -1,5 +1,5 @@
 export const caseStudies = {
-  'nebula-analytics': {
+  bcf: {
     title: 'Designing Enterprise SaaS Experiences: The UX Behind a Scalable Bot Building Framework',
     published: 'May 21, 2025',
     role: 'Product Designer',

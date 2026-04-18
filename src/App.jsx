@@ -68,7 +68,11 @@ function App() {
         />
         <Route
           path="/bcf"
-          element={<Navigate to="/nebula-analytics" replace />}
+          element={<CaseStudy onContactClick={openContact} onResumeClick={openResume} caseSlug="bcf" />}
+        />
+        <Route
+          path="/nebula-analytics"
+          element={<Navigate to="/bcf" replace />}
         />
         <Route
           path="/work/:slug"

@@ -1005,7 +1005,7 @@ function CaseStudy({ onContactClick, onResumeClick, caseSlug }) {
     );
   }
 
-  if (finalSlug === "nebula-analytics" && study) {
+  if (finalSlug === "bcf" && study) {
     return (
       <BcfCaseStudy
         onContactClick={onContactClick}
