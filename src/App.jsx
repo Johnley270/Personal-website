@@ -8,6 +8,7 @@ import ContactModal from "./components/ContactModal";
 import ResumeModal from "./components/ResumeModal";
 import BackToTopFab from "./components/BackToTopFab";
 import CaseStudy from "./pages/CaseStudy";
+import DraftCaseStudy from "./pages/DraftCaseStudy";
 import "./App.css";
 
 function LegacyWorkRedirect() {
@@ -69,6 +70,10 @@ function App() {
         <Route
           path="/bcf"
           element={<CaseStudy onContactClick={openContact} onResumeClick={openResume} caseSlug="bcf" />}
+        />
+        <Route
+          path="/draft-cs-j7x2k9"
+          element={<DraftCaseStudy onContactClick={openContact} onResumeClick={openResume} />}
         />
         <Route
           path="/nebula-analytics"
